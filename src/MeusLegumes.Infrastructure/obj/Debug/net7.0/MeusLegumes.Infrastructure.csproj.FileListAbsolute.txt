@@ -1,0 +1,17 @@
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\bin\Debug\net7.0\MeusLegumes.Infrastructure.deps.json
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\bin\Debug\net7.0\MeusLegumes.Infrastructure.runtimeconfig.json
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\bin\Debug\net7.0\MeusLegumes.Infrastructure.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\bin\Debug\net7.0\MeusLegumes.Infrastructure.pdb
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\bin\Debug\net7.0\MeusLegumes.Domain.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\bin\Debug\net7.0\MeusLegumes.Domain.pdb
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.csproj.AssemblyReference.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.AssemblyInfoInputs.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.AssemblyInfo.cs
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.csproj.CopyComplete
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\refint\MeusLegumes.Infrastructure.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.pdb
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\MeusLegumes.Infrastructure.genruntimeconfig.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Infrastructure\obj\Debug\net7.0\ref\MeusLegumes.Infrastructure.dll

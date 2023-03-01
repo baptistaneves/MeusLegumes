@@ -1,0 +1,15 @@
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\bin\Debug\net7.0\MeusLegumes.Application.deps.json
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\bin\Debug\net7.0\MeusLegumes.Application.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\bin\Debug\net7.0\MeusLegumes.Application.pdb
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\bin\Debug\net7.0\MeusLegumes.Domain.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\bin\Debug\net7.0\MeusLegumes.Domain.pdb
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.csproj.AssemblyReference.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.AssemblyInfoInputs.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.AssemblyInfo.cs
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.csproj.CoreCompileInputs.cache
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.csproj.CopyComplete
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\refint\MeusLegumes.Application.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\MeusLegumes.Application.pdb
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.Application\obj\Debug\net7.0\ref\MeusLegumes.Application.dll

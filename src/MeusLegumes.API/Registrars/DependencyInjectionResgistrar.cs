@@ -1,0 +1,35 @@
+﻿namespace MeusLegumes.API.Registrars;
+
+public class DependencyInjectionResgistrar : IWebApplicationBuilderRegistrar
+{
+    public void RegisterServices(WebApplicationBuilder builder)
+    {
+        builder.Services.AddAutoMapper(typeof(Program));
+
+        //ApplicationContext
+        builder.Services.AddScoped<ApplicationContext>();
+
+        //Notifications
+        builder.Services.AddScoped<INotifier, Notifier>();
+
+        //Categorias
+        builder.Services.AddScoped<ICategoriaAppService, CategoriaAppService>();
+        builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+
+        //Unidades
+        builder.Services.AddScoped<IUnidadeAppService, UnidadeAppService>();
+        builder.Services.AddScoped<IUnidadeRepository, UnidadeRepository>();
+
+        //Endereços
+        builder.Services.AddScoped<IProvinciaAppService, ProvinciaAppService>();
+        builder.Services.AddScoped<IProvinciaRepository, ProvinciaRepository>();
+
+        //Impostos
+        builder.Services.AddScoped<IImpostoAppService, ImpostoAppService>();
+        builder.Services.AddScoped<IImpostoRepository, ImpostoRepository>();
+
+       
+        builder.Services.AddScoped<IMotivoIsencaoIvaAppService, MotivoIsencaoIvaAppService>();
+        builder.Services.AddScoped<IMotivoIsencaoIvaRepository, MotivoIsencaoIvaRepository>();
+    }
+}
