@@ -53,6 +53,24 @@ namespace MeusLegumes.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pacotes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Descricao = table.Column<string>(type: "text", nullable: false),
+                    PrecoUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    EmPromocao = table.Column<bool>(type: "bit", nullable: false),
+                    PrecoPromocional = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImagemUrl = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Activo = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pacotes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Provincias",
                 columns: table => new
                 {
@@ -91,44 +109,55 @@ namespace MeusLegumes.Infrastructure.Migrations
                         name: "FK_Municipios_Provincias_ProvinciaId",
                         column: x => x.ProvinciaId,
                         principalTable: "Provincias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produto",
+                name: "Produtos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UnidadeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImpostoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MotivoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Descricao = table.Column<string>(type: "text", nullable: false),
                     PrecoUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UrlImagemPrincipal = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Promocao = table.Column<bool>(type: "bit", nullable: false),
+                    UrlImagemPrincipal = table.Column<string>(type: "varchar(255)", nullable: false),
+                    EmPromocao = table.Column<bool>(type: "bit", nullable: false),
                     PrecoPromocional = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Destaque = table.Column<bool>(type: "bit", nullable: false),
                     NovoLancamento = table.Column<bool>(type: "bit", nullable: false),
                     MaisVendido = table.Column<bool>(type: "bit", nullable: false),
+                    MaisProcurado = table.Column<bool>(type: "bit", nullable: false),
                     EmEstoque = table.Column<bool>(type: "bit", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false)
+                    Activo = table.Column<bool>(type: "bit", nullable: false),
+                    Observacao = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produto", x => x.Id);
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produto_Categorias_CategoriaId",
+                        name: "FK_Produtos_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
                         principalTable: "Categorias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Produto_Unidades_UnidadeId",
+                        name: "FK_Produtos_Impostos_ImpostoId",
+                        column: x => x.ImpostoId,
+                        principalTable: "Impostos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Produtos_MotivosIsencaoIva_MotivoId",
+                        column: x => x.MotivoId,
+                        principalTable: "MotivosIsencaoIva",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Produtos_Unidades_UnidadeId",
                         column: x => x.UnidadeId,
                         principalTable: "Unidades",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -136,13 +165,14 @@ namespace MeusLegumes.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MunicipioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserIdentityId = table.Column<string>(type: "varchar(50)", nullable: false),
                     Nome = table.Column<string>(type: "varchar(500)", nullable: false),
                     Tipo = table.Column<string>(type: "varchar(50)", nullable: false),
                     NumeroContribuinte = table.Column<string>(type: "varchar(20)", nullable: false),
                     TelefonePrincipal = table.Column<string>(type: "varchar(20)", nullable: false),
                     TelefoneAlternativo = table.Column<string>(type: "varchar(20)", nullable: false),
                     Email = table.Column<string>(type: "varchar(255)", nullable: false),
-                    MunicipioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Rua = table.Column<string>(type: "varchar(255)", nullable: false),
                     Casa = table.Column<string>(type: "varchar(20)", nullable: false),
                     CodigoPostal = table.Column<string>(type: "varchar(200)", nullable: false),
@@ -155,44 +185,72 @@ namespace MeusLegumes.Infrastructure.Migrations
                         name: "FK_Clientes_Municipios_MunicipioId",
                         column: x => x.MunicipioId,
                         principalTable: "Municipios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProdutoImagem",
+                name: "PacotesProduto",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PacoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProdutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UnidadeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PacotesProduto", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PacotesProduto_Pacotes_PacoteId",
+                        column: x => x.PacoteId,
+                        principalTable: "Pacotes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PacotesProduto_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PacotesProduto_Unidades_UnidadeId",
+                        column: x => x.UnidadeId,
+                        principalTable: "Unidades",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProdutosImagem",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProdutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UrlImagem = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UrlImagem = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProdutoImagem", x => x.Id);
+                    table.PrimaryKey("PK_ProdutosImagem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProdutoImagem_Produto_ProdutoId",
+                        name: "FK_ProdutosImagem_Produtos_ProdutoId",
                         column: x => x.ProdutoId,
-                        principalTable: "Produto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Produtos",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProdutoRelacionado",
+                name: "ProdutosRelacionado",
                 columns: table => new
                 {
-                    ProdutoRelacionadoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProdutoPrincipalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProdutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProdutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProdutoRelacionadoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProdutoRelacionado", x => x.ProdutoRelacionadoId);
+                    table.PrimaryKey("PK_ProdutosRelacionado", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProdutoRelacionado_Produto_ProdutoId",
+                        name: "FK_ProdutosRelacionado_Produtos_ProdutoId",
                         column: x => x.ProdutoId,
-                        principalTable: "Produto",
+                        principalTable: "Produtos",
                         principalColumn: "Id");
                 });
 
@@ -207,23 +265,48 @@ namespace MeusLegumes.Infrastructure.Migrations
                 column: "ProvinciaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produto_CategoriaId",
-                table: "Produto",
-                column: "CategoriaId");
+                name: "IX_PacotesProduto_PacoteId",
+                table: "PacotesProduto",
+                column: "PacoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produto_UnidadeId",
-                table: "Produto",
-                column: "UnidadeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProdutoImagem_ProdutoId",
-                table: "ProdutoImagem",
+                name: "IX_PacotesProduto_ProdutoId",
+                table: "PacotesProduto",
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProdutoRelacionado_ProdutoId",
-                table: "ProdutoRelacionado",
+                name: "IX_PacotesProduto_UnidadeId",
+                table: "PacotesProduto",
+                column: "UnidadeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_CategoriaId",
+                table: "Produtos",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_ImpostoId",
+                table: "Produtos",
+                column: "ImpostoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_MotivoId",
+                table: "Produtos",
+                column: "MotivoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_UnidadeId",
+                table: "Produtos",
+                column: "UnidadeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutosImagem_ProdutoId",
+                table: "ProdutosImagem",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutosRelacionado_ProdutoId",
+                table: "ProdutosRelacionado",
                 column: "ProdutoId");
         }
 
@@ -234,28 +317,34 @@ namespace MeusLegumes.Infrastructure.Migrations
                 name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "Impostos");
+                name: "PacotesProduto");
 
             migrationBuilder.DropTable(
-                name: "MotivosIsencaoIva");
+                name: "ProdutosImagem");
 
             migrationBuilder.DropTable(
-                name: "ProdutoImagem");
-
-            migrationBuilder.DropTable(
-                name: "ProdutoRelacionado");
+                name: "ProdutosRelacionado");
 
             migrationBuilder.DropTable(
                 name: "Municipios");
 
             migrationBuilder.DropTable(
-                name: "Produto");
+                name: "Pacotes");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "Provincias");
 
             migrationBuilder.DropTable(
                 name: "Categorias");
+
+            migrationBuilder.DropTable(
+                name: "Impostos");
+
+            migrationBuilder.DropTable(
+                name: "MotivosIsencaoIva");
 
             migrationBuilder.DropTable(
                 name: "Unidades");

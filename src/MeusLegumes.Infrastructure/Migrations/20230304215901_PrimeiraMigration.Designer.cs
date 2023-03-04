@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeusLegumes.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230228170831_PrimeiraMigration")]
+    [Migration("20230304215901_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -86,6 +86,10 @@ namespace MeusLegumes.Infrastructure.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserIdentityId")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
@@ -180,6 +184,70 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.ToTable("MotivosIsencaoIva", (string)null);
                 });
 
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.Pacote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("EmPromocao")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImagemUrl")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<decimal>("PrecoPromocional")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PrecoUnitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pacotes", (string)null);
+                });
+
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.PacoteProduto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PacoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UnidadeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacoteId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("UnidadeId");
+
+                    b.ToTable("PacotesProduto", (string)null);
+                });
+
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", b =>
                 {
                     b.Property<Guid>("Id")
@@ -194,7 +262,7 @@ namespace MeusLegumes.Infrastructure.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Destaque")
                         .HasColumnType("bit");
@@ -202,15 +270,31 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<bool>("EmEstoque")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("EmPromocao")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("ImpostoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("MaisProcurado")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("MaisVendido")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("MotivoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool>("NovoLancamento")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<decimal>("PrecoPromocional")
                         .HasColumnType("decimal(18,2)");
@@ -218,23 +302,24 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("Promocao")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("UnidadeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UrlImagemPrincipal")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
 
+                    b.HasIndex("ImpostoId");
+
+                    b.HasIndex("MotivoId");
+
                     b.HasIndex("UnidadeId");
 
-                    b.ToTable("Produto");
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.ProdutoImagem", b =>
@@ -246,33 +331,34 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<Guid>("ProdutoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UrlImagem")
+                    b.Property<string>("UrlImagem")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ProdutosImagem", (string)null);
+                });
+
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.ProdutoRelacionado", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoRelacionadoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("ProdutoImagem");
-                });
-
-            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.ProdutoRelacionado", b =>
-                {
-                    b.Property<Guid>("ProdutoRelacionadoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ProdutoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProdutoPrincipalId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProdutoRelacionadoId");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("ProdutoRelacionado");
+                    b.ToTable("ProdutosRelacionado", (string)null);
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Unidades.Entities.Unidade", b =>
@@ -293,9 +379,8 @@ namespace MeusLegumes.Infrastructure.Migrations
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Clientes.Entities.Cliente", b =>
                 {
                     b.HasOne("MeusLegumes.Domain.Contexts.Enderecos.Entities.Municipio", "Municipio")
-                        .WithMany()
+                        .WithMany("Clientes")
                         .HasForeignKey("MunicipioId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Municipio");
@@ -306,10 +391,33 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.HasOne("MeusLegumes.Domain.Contexts.Enderecos.Entities.Provincia", "Provincia")
                         .WithMany("Municipios")
                         .HasForeignKey("ProvinciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Provincia");
+                });
+
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.PacoteProduto", b =>
+                {
+                    b.HasOne("MeusLegumes.Domain.Contexts.Pacotes.Entities.Pacote", "Pacote")
+                        .WithMany("PacotesProduto")
+                        .HasForeignKey("PacoteId")
+                        .IsRequired();
+
+                    b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", "Produto")
+                        .WithMany("PacotesProduto")
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+
+                    b.HasOne("MeusLegumes.Domain.Contexts.Unidades.Entities.Unidade", "Unidade")
+                        .WithMany("PacotesProduto")
+                        .HasForeignKey("UnidadeId")
+                        .IsRequired();
+
+                    b.Navigation("Pacote");
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("Unidade");
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", b =>
@@ -317,34 +425,50 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.HasOne("MeusLegumes.Domain.Contexts.Categorias.Entities.Categoria", "Categoria")
                         .WithMany("Produtos")
                         .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MeusLegumes.Domain.Contexts.Impostos.Entities.Imposto", "Imposto")
+                        .WithMany("Produtos")
+                        .HasForeignKey("ImpostoId")
+                        .IsRequired();
+
+                    b.HasOne("MeusLegumes.Domain.Contexts.Impostos.Entities.MotivoIsencaoIva", "MotivoIsencaoIva")
+                        .WithMany("Produtos")
+                        .HasForeignKey("MotivoId")
                         .IsRequired();
 
                     b.HasOne("MeusLegumes.Domain.Contexts.Unidades.Entities.Unidade", "Unidade")
                         .WithMany("Produtos")
                         .HasForeignKey("UnidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Categoria");
+
+                    b.Navigation("Imposto");
+
+                    b.Navigation("MotivoIsencaoIva");
 
                     b.Navigation("Unidade");
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.ProdutoImagem", b =>
                 {
-                    b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", null)
-                        .WithMany("ProdutoImagem")
+                    b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", "Produto")
+                        .WithMany("ProdutosImagem")
                         .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.ProdutoRelacionado", b =>
                 {
-                    b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", null)
-                        .WithMany("ProdutoRelacionado")
-                        .HasForeignKey("ProdutoId");
+                    b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", "Produto")
+                        .WithMany("ProdutosRelacionado")
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Categorias.Entities.Categoria", b =>
@@ -352,20 +476,44 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Navigation("Produtos");
                 });
 
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Enderecos.Entities.Municipio", b =>
+                {
+                    b.Navigation("Clientes");
+                });
+
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Enderecos.Entities.Provincia", b =>
                 {
                     b.Navigation("Municipios");
                 });
 
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Impostos.Entities.Imposto", b =>
+                {
+                    b.Navigation("Produtos");
+                });
+
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Impostos.Entities.MotivoIsencaoIva", b =>
+                {
+                    b.Navigation("Produtos");
+                });
+
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.Pacote", b =>
+                {
+                    b.Navigation("PacotesProduto");
+                });
+
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", b =>
                 {
-                    b.Navigation("ProdutoImagem");
+                    b.Navigation("PacotesProduto");
 
-                    b.Navigation("ProdutoRelacionado");
+                    b.Navigation("ProdutosImagem");
+
+                    b.Navigation("ProdutosRelacionado");
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Unidades.Entities.Unidade", b =>
                 {
+                    b.Navigation("PacotesProduto");
+
                     b.Navigation("Produtos");
                 });
 #pragma warning restore 612, 618

@@ -34,4 +34,8 @@ global using MeusLegumes.Application.Contexts.Impostos.Contracts;
 global using MeusLegumes.Application.Contexts.Impostos.Services;
 global using MeusLegumes.Domain.Contexts.Impostos.Repositories;
 global using MeusLegumes.Infrastructure.Repositories.Impostos;
+global using MeusLegumes.Application.Contexts.Clientes.Contracts;
+global using MeusLegumes.Application.Contexts.Clientes.Services;
+global using MeusLegumes.Domain.Contexts.Clientes.Repositories;
+global using MeusLegumes.Infrastructure.Repositories.Clientes;
 

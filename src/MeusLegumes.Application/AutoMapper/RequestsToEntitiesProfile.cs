@@ -19,5 +19,9 @@ public class RequestsToEntitiesProfile : Profile
         CreateMap<ActualizarImposto, Imposto>();
 
         CreateMap<ActualizarMotivoIsencaoIva, MotivoIsencaoIva>();
+
+        //Clinte
+        CreateMap<CriarCliente, Cliente>();
+        CreateMap<ActualizarCliente, Cliente>();
     }
 }

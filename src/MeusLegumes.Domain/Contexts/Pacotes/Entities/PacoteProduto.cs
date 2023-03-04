@@ -12,6 +12,8 @@ public class PacoteProduto : Entity
     public Produto Produto { get; private set; }
     public Unidade Unidade { get; private set; }
 
+    public PacoteProduto() { }
+
     public PacoteProduto(Guid pacoteId, Guid produtoId, Guid unidadeId, int quantidade)
     {
         PacoteId = pacoteId;

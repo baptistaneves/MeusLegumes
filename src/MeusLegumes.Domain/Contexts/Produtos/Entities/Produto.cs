@@ -10,13 +10,15 @@ public class Produto : Entity
     public string Descricao { get; private set; }
     public decimal PrecoUnitario { get; private set; }
     public string UrlImagemPrincipal { get; private set; }
-    public bool Promocao { get; private set; }
+    public bool EmPromocao { get; private set; }
     public decimal PrecoPromocional { get; private set; }
     public bool Destaque { get; private set; }
     public bool NovoLancamento { get; private set; }
     public bool MaisVendido { get; private set; }
+    public bool MaisProcurado { get; private set; }
     public bool EmEstoque { get; private set; }
     public bool Activo { get; private set; }
+    public string Observacao { get; private set; }
 
     //EF Rel.
     public Categoria Categoria { get; private set; }
@@ -26,8 +28,9 @@ public class Produto : Entity
 
     private readonly List<ProdutoImagem> _produtoImagens = new List<ProdutoImagem>();
     private readonly List<ProdutoRelacionado> _produtoRelacionados = new List<ProdutoRelacionado>();
-    public IEnumerable<ProdutoImagem> ProdutoImagem { get { return _produtoImagens; } }
-    public IEnumerable<ProdutoRelacionado> ProdutoRelacionado { get { return _produtoRelacionados; } }
+    public IEnumerable<ProdutoImagem> ProdutosImagem { get { return _produtoImagens; } }
+    public IEnumerable<ProdutoRelacionado> ProdutosRelacionado { get { return _produtoRelacionados; } }
+    public IEnumerable<PacoteProduto> PacotesProduto { get; private set; }
 
     public Produto(Guid categoriaId, Guid unidadeId, string nome, string descricao, decimal precoUnitario, string urlImagemPrincipal, bool activo)
     {
@@ -43,8 +46,8 @@ public class Produto : Entity
     public void Activar() => Activo = true;
     public void Desactivar() => Activo = false;
 
-    public void ActivarPromocao() => Promocao = true;
-    public void DesactivarPromocao() => Promocao = false;
+    public void ActivarPromocao() => EmPromocao = true;
+    public void DesactivarPromocao() => EmPromocao = false;
 
     public void ActivarDestaque() => Destaque = true;
     public void DesactivarDestaque() => Destaque = false;

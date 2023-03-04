@@ -54,4 +54,13 @@ public class ApiRoutes
         public const string ActualizarMotivo = "actualizar-motivo";
         public const string RemoverMotivo = "remover-motivo/{id}";
     }
+
+    public static class Cliente
+    {
+        public const string ObterClientes = "obter-clientes";
+        public const string ObterClientePorId = "obter-cliente-por-id/{id}";
+        public const string NovoCliente = "novo-cliente";
+        public const string ActualizarCliente = "actualizar-cliente";
+        public const string RemoverCliente = "remover-cliente/{id}";
+    }
 }

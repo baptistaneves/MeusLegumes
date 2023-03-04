@@ -13,6 +13,10 @@ internal class UnidadeMapping : IEntityTypeConfiguration<Unidade>
        .WithOne(p => p.Unidade)
        .HasForeignKey(p => p.UnidadeId);
 
+        builder.HasMany(p => p.PacotesProduto)
+         .WithOne(pr => pr.Unidade)
+         .HasForeignKey(pr => pr.UnidadeId);
+
         builder.ToTable("Unidades");
     }
 }

@@ -11,5 +11,7 @@ public class Unidade : Entity
 
     //For EF
     public IEnumerable<Produto> Produtos { get; private set; }
+    public IEnumerable<PacoteProduto> PacotesProduto { get; private set; }
+
     public Unidade() { }
 }

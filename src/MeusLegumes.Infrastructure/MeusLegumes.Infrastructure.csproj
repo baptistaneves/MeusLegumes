@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mappings\Produtos\" />
-    <Folder Include="Mappings\Pacotes\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Repositories\Pacotes\" />
     <Folder Include="Repositories\Produtos\" />
   </ItemGroup>

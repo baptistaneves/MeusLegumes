@@ -9,6 +9,9 @@
             builder.Property(c => c.Nome)
                 .HasColumnType("varchar(200)");
 
+            builder.Property(c => c.UserIdentityId)
+                .HasColumnType("varchar(50)");
+
             builder.Property(c => c.Tipo)
                 .HasColumnType("varchar(50)");
 

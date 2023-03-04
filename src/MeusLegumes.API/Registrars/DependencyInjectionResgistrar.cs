@@ -31,5 +31,10 @@ public class DependencyInjectionResgistrar : IWebApplicationBuilderRegistrar
        
         builder.Services.AddScoped<IMotivoIsencaoIvaAppService, MotivoIsencaoIvaAppService>();
         builder.Services.AddScoped<IMotivoIsencaoIvaRepository, MotivoIsencaoIvaRepository>();
+
+        //Clientes
+        builder.Services.AddScoped<IClienteAppService, ClienteAppService>();
+        builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+
     }
 }

@@ -18,6 +18,11 @@ global using MeusLegumes.Application.Contexts.Impostos.Contracts;
 global using MeusLegumes.Domain.Contexts.Impostos.Entities;
 global using MeusLegumes.Application.Contexts.Impostos.Validations;
 global using MeusLegumes.Domain.Contexts.Impostos.Repositories;
+global using MeusLegumes.Application.Contexts.Clientes.Contracts;
+global using MeusLegumes.Domain.Contexts.Clientes.Entities;
+global using MeusLegumes.Domain.Contexts.Clientes.Repositories;
+global using MeusLegumes.Application.Contexts.Clientes.Validations;
+
 
 
 
