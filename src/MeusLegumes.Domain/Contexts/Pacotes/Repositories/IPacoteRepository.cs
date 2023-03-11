@@ -2,5 +2,4 @@
 
 public interface IPacoteRepository : IRepository<Pacote>
 {
-    Task<IEnumerable<PacoteProduto>> ObterPacoteProdutosPorPacoteId(Guid pacoteId);
 }

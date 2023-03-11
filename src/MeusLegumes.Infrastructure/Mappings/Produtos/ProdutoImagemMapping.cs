@@ -12,7 +12,7 @@ internal partial class ProdutoMapping
                 .IsRequired()
                 .HasColumnType("varchar(255)");
 
-            builder.ToTable("ProdutosImagem");
+            builder.ToTable("ProdutoImagens");
         }
     }
 }

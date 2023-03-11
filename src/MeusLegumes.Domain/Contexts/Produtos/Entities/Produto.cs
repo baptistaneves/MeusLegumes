@@ -28,20 +28,38 @@ public class Produto : Entity
 
     private readonly List<ProdutoImagem> _produtoImagens = new List<ProdutoImagem>();
     private readonly List<ProdutoRelacionado> _produtoRelacionados = new List<ProdutoRelacionado>();
+
     public IEnumerable<ProdutoImagem> ProdutosImagem { get { return _produtoImagens; } }
     public IEnumerable<ProdutoRelacionado> ProdutosRelacionado { get { return _produtoRelacionados; } }
     public IEnumerable<PacoteProduto> PacotesProduto { get; private set; }
 
-    public Produto(Guid categoriaId, Guid unidadeId, string nome, string descricao, decimal precoUnitario, string urlImagemPrincipal, bool activo)
+    public Produto(Guid categoriaId, Guid unidadeId, Guid impostoId, Guid motivoId, string nome, 
+        string descricao, decimal precoUnitario, string urlImagemPrincipal, bool emPromocao, 
+        decimal precoPromocional, bool destaque, bool novoLancamento, bool maisVendido, 
+        bool maisProcurado, bool emEstoque, bool activo, string observacao)
     {
         CategoriaId = categoriaId;
         UnidadeId = unidadeId;
+        ImpostoId = impostoId;
+        MotivoId = motivoId;
         Nome = nome;
         Descricao = descricao;
         PrecoUnitario = precoUnitario;
         UrlImagemPrincipal = urlImagemPrincipal;
+        EmPromocao = emPromocao;
+        PrecoPromocional = precoPromocional;
+        Destaque = destaque;
+        NovoLancamento = novoLancamento;
+        MaisVendido = maisVendido;
+        MaisProcurado = maisProcurado;
+        EmEstoque = emEstoque;
         Activo = activo;
+        Observacao = observacao;
     }
+
+    //For EF
+    public Produto() { }
+   
 
     public void Activar() => Activo = true;
     public void Desactivar() => Activo = false;
@@ -63,21 +81,39 @@ public class Produto : Entity
 
     public void AlterarImagemPrincipal(string urlImagemPrincipal) => UrlImagemPrincipal = urlImagemPrincipal;
 
+    private bool ProdutoImagemExistente(ProdutoImagem produtoImagem)
+    {
+        return _produtoImagens.Any(pr => pr.UrlImagem == produtoImagem.UrlImagem);
+    }
+
     public void AdicionarProdutoImagem(ProdutoImagem produtoImagem)
     {
+        if (ProdutoImagemExistente(produtoImagem)) _produtoImagens.Remove(produtoImagem);
+
+        produtoImagem.AssociarAoProduto(Id);
+
         _produtoImagens.Add(produtoImagem);
     }
 
-    public void RemoverProdutoImagemPorUrlImagem(ProdutoImagem produtoImagem)
+    public void RemoverProdutoImagem(ProdutoImagem produtoImagem)
     {
         _produtoImagens.Remove(produtoImagem);
     }
 
+    private bool ProdutoRelacionadoExistente(ProdutoRelacionado produtoRelacionado)
+    {
+        return _produtoRelacionados.Any(pr => pr.ProdutoRelacionadoId == produtoRelacionado.ProdutoRelacionadoId);
+    }
+
     public void AdicionarProdutoRelacionado(ProdutoRelacionado produtoRelacionado)
     {
+        if (ProdutoRelacionadoExistente(produtoRelacionado)) _produtoRelacionados.Remove(produtoRelacionado);
+
+        produtoRelacionado.AssociarAoProduto(Id);
+
         _produtoRelacionados.Add(produtoRelacionado);
     }
-    void RemoverProdutoRelacionadoPorProdutoRelacionadoId(ProdutoRelacionado produtoRelacionado)
+    public void RemoverProdutoRelacionado(ProdutoRelacionado produtoRelacionado)
     {
         _produtoRelacionados.Remove(produtoRelacionado);
     }

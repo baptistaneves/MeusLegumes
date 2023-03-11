@@ -87,3 +87,4 @@ D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\refint\Me
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\MeusLegumes.API.pdb
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\MeusLegumes.API.genruntimeconfig.cache
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\ref\MeusLegumes.API.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MeusLegumes.API.staticwebassets.runtime.json

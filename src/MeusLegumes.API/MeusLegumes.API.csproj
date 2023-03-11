@@ -27,4 +27,9 @@
     <ProjectReference Include="..\MeusLegumes.Infrastructure\MeusLegumes.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imagens\pacotes\" />
+    <Folder Include="wwwroot\imagens\produtos\" />
+  </ItemGroup>
+
 </Project>

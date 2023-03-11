@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "k5xX3X4LOfiUH1iWabo1ahCZ9hJbrE6Siun0iyFyeoI=",
+  "Hash": "BHFvR4i2DgO8spLpPc4Q0Jg0WrTKAM8k4Chp9l9VLR8=",
   "Source": "MeusLegumes.API",
   "BasePath": "_content/MeusLegumes.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MeusLegumes.API\\wwwroot",
+      "Source": "MeusLegumes.API",
+      "ContentRoot": "D:\\Projectos\\Web\\work\\MeusLegumes\\src\\MeusLegumes.API\\wwwroot\\",
+      "BasePath": "_content/MeusLegumes.API",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

@@ -37,8 +37,17 @@ public class Pacote : Entity
 
     public void AlterarImagem(string imagemUrl) => ImagemUrl = imagemUrl;
 
+    private bool PacoteProdutoExistente(PacoteProduto pacoteProduto)
+    {
+        return _pacoteProdutos.Any(p => p.Id == pacoteProduto.Id);
+    }
+
     public void AdicionarPacoteProduto(PacoteProduto pacoteProduto)
     {
+        if(PacoteProdutoExistente(pacoteProduto)) _pacoteProdutos.Remove(pacoteProduto);
+
+        pacoteProduto.AssociarAoPacote(Id);
+
         _pacoteProdutos.Add(pacoteProduto);
     }
 

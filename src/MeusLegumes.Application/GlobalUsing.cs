@@ -22,6 +22,17 @@ global using MeusLegumes.Application.Contexts.Clientes.Contracts;
 global using MeusLegumes.Domain.Contexts.Clientes.Entities;
 global using MeusLegumes.Domain.Contexts.Clientes.Repositories;
 global using MeusLegumes.Application.Contexts.Clientes.Validations;
+global using MeusLegumes.Application.Contexts.Produtos.Contracts;
+global using MeusLegumes.Domain.Contexts.Produtos.Entities;
+global using MeusLegumes.Domain.Contexts.Produtos.Repositories;
+global using MeusLegumes.Application.Contexts.Produtos.Validations;
+global using MeusLegumes.Application.Contexts.Pacotes.Contracts;
+global using MeusLegumes.Domain.Contexts.Pacotes.Entities;
+global using MeusLegumes.Application.Contexts.Pacotes.Validations;
+global using MeusLegumes.Domain.Contexts.Pacotes.Repositories;
+
+
+
 
 
 

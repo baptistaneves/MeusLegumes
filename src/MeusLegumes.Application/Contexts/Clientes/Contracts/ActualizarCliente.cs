@@ -21,20 +21,20 @@ public class ActualizarCliente
     [Required(ErrorMessage = "O telefone principal deve ser informado")]
     public string TelefonePrincipal { get; set; }
 
-    public string TelefoneAlternativo { get; private set; }
+    public string TelefoneAlternativo { get; set; }
 
     [Required(ErrorMessage = "O email deve ser informado")]
     [EmailAddress(ErrorMessage = "O email informado é inválido")]
-    public string Email { get; private set; }
+    public string Email { get; set; }
 
     [Required(ErrorMessage = "O nome da rua deve ser informado")]
-    public string Rua { get; private set; }
+    public string Rua { get; set; }
 
-    public string Casa { get; private set; }
+    public string Casa { get; set; }
 
-    public string CodigoPostal { get; private set; }
+    public string CodigoPostal { get; set; }
 
     [Required(ErrorMessage = "O ponto de referência deve ser informado")]
-    public string PontoDeReferencia { get; private set; }
+    public string PontoDeReferencia { get; set; }
 }
 

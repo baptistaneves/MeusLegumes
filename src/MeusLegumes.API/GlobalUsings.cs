@@ -38,4 +38,13 @@ global using MeusLegumes.Application.Contexts.Clientes.Contracts;
 global using MeusLegumes.Application.Contexts.Clientes.Services;
 global using MeusLegumes.Domain.Contexts.Clientes.Repositories;
 global using MeusLegumes.Infrastructure.Repositories.Clientes;
+global using MeusLegumes.Application.Contexts.Produtos.Contracts;
+global using MeusLegumes.Application.Contexts.Produtos.Services;
+global using MeusLegumes.Application.Contexts.Pacotes.Contracts;
+global using MeusLegumes.Application.Contexts.Pacotes.Services;
+global using MeusLegumes.Domain.Contexts.Pacotes.Repositories;
+global using MeusLegumes.Domain.Contexts.Produtos.Repositories;
+global using MeusLegumes.Infrastructure.Repositories.Pacotes;
+global using MeusLegumes.Infrastructure.Repositories.Produtos;
+
 

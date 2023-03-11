@@ -15,7 +15,8 @@ public class Cliente : Entity
     public string CodigoPostal { get; private set; }
     public string PontoDeReferencia { get; private set; }
 
-    public Cliente(string nome, string tipo, string numeroContribuinte, string telefonePrincipal, string telefoneAlternativo, string email, Guid municipioId, string rua, string casa, string codigoPostal, string pontoDeReferencia)
+    public Cliente(string nome, string tipo, string numeroContribuinte, string telefonePrincipal, 
+        string telefoneAlternativo, string email, Guid municipioId, string rua, string casa, string codigoPostal, string pontoDeReferencia)
     {
         Nome = nome;
         Tipo = tipo;
@@ -28,6 +29,7 @@ public class Cliente : Entity
         Casa = casa;
         CodigoPostal = codigoPostal;
         PontoDeReferencia = pontoDeReferencia;
+        UserIdentityId = Guid.NewGuid().ToString();
     }
 
     public Cliente() { }

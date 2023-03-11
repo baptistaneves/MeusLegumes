@@ -23,5 +23,13 @@ public class RequestsToEntitiesProfile : Profile
         //Clinte
         CreateMap<CriarCliente, Cliente>();
         CreateMap<ActualizarCliente, Cliente>();
+
+        //Produto
+        CreateMap<CriarProduto, Produto>();
+        CreateMap<ActualizarProduto, Produto>();
+
+        //Pacote
+        CreateMap<CriarPacote, Pacote>();
+        CreateMap<ActualizarPacote, Pacote>();
     }
 }

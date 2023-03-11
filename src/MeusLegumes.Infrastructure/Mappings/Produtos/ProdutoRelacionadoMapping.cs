@@ -8,7 +8,7 @@ internal partial class ProdutoMapping
         {
             builder.HasKey(x => x.Id);
 
-            builder.ToTable("ProdutosRelacionado");
+            builder.ToTable("ProdutoRelacionados");
         }
     }
 }

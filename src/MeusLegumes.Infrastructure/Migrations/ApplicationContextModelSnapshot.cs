@@ -336,7 +336,7 @@ namespace MeusLegumes.Infrastructure.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("ProdutosImagem", (string)null);
+                    b.ToTable("ProdutoImagens", (string)null);
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.ProdutoRelacionado", b =>
@@ -355,7 +355,7 @@ namespace MeusLegumes.Infrastructure.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("ProdutosRelacionado", (string)null);
+                    b.ToTable("ProdutoRelacionados", (string)null);
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Unidades.Entities.Unidade", b =>

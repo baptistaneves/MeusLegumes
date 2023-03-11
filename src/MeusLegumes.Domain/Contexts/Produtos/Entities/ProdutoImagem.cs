@@ -3,12 +3,16 @@
 public class ProdutoImagem : Entity
 {
     public Guid ProdutoId { get; private set; }
-    public Guid UrlImagem { get; private set; }
+    public string UrlImagem { get; private set; }
 
-    public ProdutoImagem(Guid produtoId, Guid urlImagem)
+    public ProdutoImagem(string urlImagem)
+    {
+        UrlImagem = urlImagem;
+    }
+
+    public void AssociarAoProduto(Guid produtoId)
     {
         ProdutoId = produtoId;
-        UrlImagem = urlImagem;
     }
 
     //EF Rel.

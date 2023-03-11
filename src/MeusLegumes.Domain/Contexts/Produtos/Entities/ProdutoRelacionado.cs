@@ -5,10 +5,14 @@ public class ProdutoRelacionado : Entity
     public Guid ProdutoId { get; private set; }
     public Guid ProdutoRelacionadoId { get; private set; }
 
-    public ProdutoRelacionado(Guid produtoId, Guid produtoRelacionadoId)
+    public ProdutoRelacionado(Guid produtoRelacionadoId)
+    {
+        ProdutoRelacionadoId = produtoRelacionadoId;
+    }
+
+    public void AssociarAoProduto(Guid produtoId)
     {
         ProdutoId = produtoId;
-        ProdutoRelacionadoId = produtoRelacionadoId;
     }
 
     //EF Rel.

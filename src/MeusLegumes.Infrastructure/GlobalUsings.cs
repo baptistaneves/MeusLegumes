@@ -17,3 +17,5 @@ global using MeusLegumes.Domain.Contexts.Enderecos.Repositories;
 global using MeusLegumes.Domain.Contexts.Clientes.Repositories;
 global using MeusLegumes.Domain.Contexts.Impostos.Repositories;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using MeusLegumes.Domain.Contexts.Produtos.Repositories;
+

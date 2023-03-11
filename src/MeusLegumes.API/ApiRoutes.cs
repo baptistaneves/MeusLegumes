@@ -63,4 +63,22 @@ public class ApiRoutes
         public const string ActualizarCliente = "actualizar-cliente";
         public const string RemoverCliente = "remover-cliente/{id}";
     }
+
+    public static class Produto
+    {
+        public const string ObterProdutos = "obter-produtos";
+        public const string ObterProdutoPorId = "obter-produto-por-id/{id}";
+        public const string NovoProduto = "novo-produto";
+        public const string ActualizarProduto = "actualizar-produto";
+        public const string RemoverProduto = "remover-produto/{id}";
+    }
+
+    public static class Pacote
+    {
+        public const string ObterPacotes = "obter-pacotes";
+        public const string ObterPacotePorId = "obter-pacote-por-id/{id}";
+        public const string NovoPacote = "novo-pacote";
+        public const string ActualizarPacote = "actualizar-pacote";
+        public const string RemoverPacote = "remover-pacote/{id}";
+    }
 }
