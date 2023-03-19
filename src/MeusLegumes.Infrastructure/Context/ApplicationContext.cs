@@ -1,6 +1,6 @@
 ﻿namespace MeusLegumes.Infrastructure.Context;
 
-public class ApplicationContext : DbContext, IUnitOfWork
+public class ApplicationContext : IdentityDbContext, IUnitOfWork
 {
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Unidade> Unidades { get; set; }
@@ -10,7 +10,10 @@ public class ApplicationContext : DbContext, IUnitOfWork
     public DbSet<Imposto> Impostos { get; set; }
     public DbSet<MotivoIsencaoIva> MotivosIsencaoIva { get; set; }
     public DbSet<Produto> Produtos { get; set; }
+    public DbSet<ProdutoRelacionado> ProdutoRelacionados { get; set; }
+    public DbSet<ProdutoImagem> ProdutoImagens { get; set; }
     public DbSet<Pacote> Pacotes { get; set; }
+    public DbSet<PacoteItem> PacoteItems { get; set; }
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
@@ -18,7 +21,7 @@ public class ApplicationContext : DbContext, IUnitOfWork
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
 
-        foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+        //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
         base.OnModelCreating(modelBuilder);
     }

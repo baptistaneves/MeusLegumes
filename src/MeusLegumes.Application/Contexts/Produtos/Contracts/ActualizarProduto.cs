@@ -4,6 +4,7 @@ namespace MeusLegumes.Application.Contexts.Produtos.Contracts;
 
 public class ActualizarProduto
 {
+    [Required(ErrorMessage = "O id do produto não é válido")]
     public Guid Id { get; set; }
 
     [Required(ErrorMessage = "Informe a categoria")]
@@ -40,7 +41,8 @@ public class ActualizarProduto
     public bool Activo { get; set; }
     public string Observacao { get; set; }
 
-    public IEnumerable<CriarProdutoRelacionado> ProdutosRelacionados { get; set; }
-    public IEnumerable<CriarProdutoImagem> produtoImagens { get; set; }
+    public List<Guid> ProdutosRelacionados { get; set; } = new List<Guid>();
+    public List<string>? ImagensOpcionaisUrls { get; set; } = new List<string>();
+
 }
 

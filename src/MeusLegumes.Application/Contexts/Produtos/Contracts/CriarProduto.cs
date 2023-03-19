@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MeusLegumes.Application.Contexts.Produtos.Contracts;
 
@@ -27,9 +25,8 @@ public class CriarProduto
     [Range(20, int.MaxValue, ErrorMessage = "O valor do produto deve ser maior que 20")]
     public decimal PrecoUnitario { get; set; }
 
-    public string UrlImagemPrincipal { get; private set; }
-
-    public IFormFile Imagem { get; set; }
+    [Required(ErrorMessage = "Selecione a imagem proncipal para o produto")]
+    public string UrlImagemPrincipal { get; set; }
 
     public bool EmPromocao { get; set; }
     public decimal PrecoPromocional { get; set; }
@@ -39,10 +36,9 @@ public class CriarProduto
     public bool MaisProcurado { get; set; }
     public bool EmEstoque { get; set; }
     public bool Activo { get; set; }
-    public string Observacao { get; set; }
+    public string? Observacao { get; set; }
 
-    public IEnumerable<CriarProdutoRelacionado> ProdutosRelacionados { get; set; }
-    public IEnumerable<CriarProdutoImagem> ProdutoImagens { get; set; }
+    public List<Guid> ProdutosRelacionados { get; set; } = new List<Guid>();
+    public List<string>? ImagensOpcionaisUrls { get; set; } = new List<string>();
 
-    public void AdicionarImagemUrl(string imageUrl) => UrlImagemPrincipal = imageUrl;
 }

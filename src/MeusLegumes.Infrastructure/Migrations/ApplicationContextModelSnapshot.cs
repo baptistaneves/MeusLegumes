@@ -216,7 +216,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.ToTable("Pacotes", (string)null);
                 });
 
-            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.PacoteProduto", b =>
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.PacoteItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace MeusLegumes.Infrastructure.Migrations
 
                     b.HasIndex("UnidadeId");
 
-                    b.ToTable("PacotesProduto", (string)null);
+                    b.ToTable("PacoteItems", (string)null);
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", b =>
@@ -393,11 +393,12 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Navigation("Provincia");
                 });
 
-            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.PacoteProduto", b =>
+            modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.PacoteItem", b =>
                 {
                     b.HasOne("MeusLegumes.Domain.Contexts.Pacotes.Entities.Pacote", "Pacote")
-                        .WithMany("PacotesProduto")
+                        .WithMany("PacoteItems")
                         .HasForeignKey("PacoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", "Produto")
@@ -453,6 +454,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", "Produto")
                         .WithMany("ProdutosImagem")
                         .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Produto");
@@ -463,6 +465,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.HasOne("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", "Produto")
                         .WithMany("ProdutosRelacionado")
                         .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Produto");
@@ -495,7 +498,7 @@ namespace MeusLegumes.Infrastructure.Migrations
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Pacotes.Entities.Pacote", b =>
                 {
-                    b.Navigation("PacotesProduto");
+                    b.Navigation("PacoteItems");
                 });
 
             modelBuilder.Entity("MeusLegumes.Domain.Contexts.Produtos.Entities.Produto", b =>

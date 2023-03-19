@@ -48,17 +48,10 @@ internal partial class ProdutoMapping : IEntityTypeConfiguration<Produto>
         builder.Property(p => p.MaisProcurado)
         .HasColumnType("bit");
 
-        builder.HasMany(p => p.ProdutosImagem)
-            .WithOne(pi => pi.Produto)
-            .HasForeignKey(pi => pi.ProdutoId);
-
-        builder.HasMany(p => p.ProdutosRelacionado)
-            .WithOne(pr => pr.Produto)
-            .HasForeignKey(pr => pr.ProdutoId);
-
         builder.HasMany(p => p.PacotesProduto)
            .WithOne(pr => pr.Produto)
-           .HasForeignKey(pr => pr.ProdutoId);
+           .HasForeignKey(pr => pr.ProdutoId)
+           .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("Produtos");
     }

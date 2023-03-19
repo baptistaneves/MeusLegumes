@@ -2,7 +2,7 @@
 
 namespace MeusLegumes.Application.Contexts.Pacotes.Contracts;
 
-public class CriarPacoteProduto
+public class CriarPacoteItem
 {
     [Required(ErrorMessage = "Informe o pruduto para o pacote")]
     public Guid ProdutoId { get; set; }

@@ -14,6 +14,13 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
         {
             options.SwaggerDoc(description.GroupName, CreateVersionInfo(description));
         }
+
+        var scheme = GetJwtSecurityScheme();
+        options.AddSecurityDefinition(scheme.Reference.Id, scheme);
+        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {scheme, new string[0] }
+        });
     }
 
     private OpenApiInfo CreateVersionInfo(ApiVersionDescription description)
@@ -40,6 +47,24 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
         }
         return info;
+    }
+
+    private OpenApiSecurityScheme GetJwtSecurityScheme()
+    {
+        return new OpenApiSecurityScheme
+        {
+            Name = "Autenticação JWT",
+            Description = "Copie 'Bearer ' + token'",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Reference = new OpenApiReference
+            {
+                Id = JwtBearerDefaults.AuthenticationScheme,
+                Type = ReferenceType.SecurityScheme
+            }
+        };
     }
 
 }

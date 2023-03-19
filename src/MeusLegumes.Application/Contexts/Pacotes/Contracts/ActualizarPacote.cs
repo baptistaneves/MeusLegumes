@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeusLegumes.Application.Contexts.Pacotes.Contracts;
 
 public class ActualizarPacote
 {
+    [Required(ErrorMessage = "O Id do pacote informado é inválido")]
     public Guid Id { get; set; }
 
     [Required(ErrorMessage = "Informe o nome")]
@@ -22,7 +24,7 @@ public class ActualizarPacote
     public decimal PrecoPromocional { get; set; }
     public bool Activo { get; set; }
 
-    public IEnumerable<ActualizarPacoteProduto> PacoteProdutos { get; set; }
+    public List<CriarPacoteItem> Items { get; set; } = new List<CriarPacoteItem>();
 
 }
 

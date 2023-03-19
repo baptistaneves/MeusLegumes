@@ -23,10 +23,6 @@ public class ActualizarCliente
 
     public string TelefoneAlternativo { get; set; }
 
-    [Required(ErrorMessage = "O email deve ser informado")]
-    [EmailAddress(ErrorMessage = "O email informado é inválido")]
-    public string Email { get; set; }
-
     [Required(ErrorMessage = "O nome da rua deve ser informado")]
     public string Rua { get; set; }
 

@@ -6,13 +6,6 @@ public class McvWebAppRegistrar : IWebApplicationRegistrar
     {
         app.ConfigureExceptionHandler(app.Environment);
 
-        app.UseHttpsRedirection();
-
-        app.UseAuthentication();
-        app.UseAuthorization();
-
-        app.MapControllers();
-
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
@@ -24,5 +17,12 @@ public class McvWebAppRegistrar : IWebApplicationRegistrar
                     description.ApiVersion.ToString());
             }
         });
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapControllers();
     }
 }

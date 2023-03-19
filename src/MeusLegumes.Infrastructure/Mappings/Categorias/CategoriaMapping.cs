@@ -11,7 +11,8 @@ public class CategoriaMapping : IEntityTypeConfiguration<Categoria>
 
         builder.HasMany(c => c.Produtos)
             .WithOne(p => p.Categoria)
-            .HasForeignKey(p => p.CategoriaId);
+            .HasForeignKey(p => p.CategoriaId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
             
         builder.ToTable("Categorias");
     }

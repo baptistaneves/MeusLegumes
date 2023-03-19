@@ -31,7 +31,7 @@ public class Produto : Entity
 
     public IEnumerable<ProdutoImagem> ProdutosImagem { get { return _produtoImagens; } }
     public IEnumerable<ProdutoRelacionado> ProdutosRelacionado { get { return _produtoRelacionados; } }
-    public IEnumerable<PacoteProduto> PacotesProduto { get; private set; }
+    public IEnumerable<PacoteItem> PacotesProduto { get; private set; }
 
     public Produto(Guid categoriaId, Guid unidadeId, Guid impostoId, Guid motivoId, string nome, 
         string descricao, decimal precoUnitario, string urlImagemPrincipal, bool emPromocao, 
@@ -60,6 +60,29 @@ public class Produto : Entity
     //For EF
     public Produto() { }
    
+    public void ActualizarProduto(Guid categoriaId, Guid unidadeId, Guid impostoId, Guid motivoId, string nome,
+        string descricao, decimal precoUnitario, string urlImagemPrincipal, bool emPromocao,
+        decimal precoPromocional, bool destaque, bool novoLancamento, bool maisVendido,
+        bool maisProcurado, bool emEstoque, bool activo, string observacao)
+    {
+        CategoriaId = categoriaId;
+        UnidadeId = unidadeId;
+        ImpostoId = impostoId;
+        MotivoId = motivoId;
+        Nome = nome;
+        Descricao = descricao;
+        PrecoUnitario = precoUnitario;
+        UrlImagemPrincipal = urlImagemPrincipal;
+        EmPromocao = emPromocao;
+        PrecoPromocional = precoPromocional;
+        Destaque = destaque;
+        NovoLancamento = novoLancamento;
+        MaisVendido = maisVendido;
+        MaisProcurado = maisProcurado;
+        EmEstoque = emEstoque;
+        Activo = activo;
+        Observacao = observacao;
+    }
 
     public void Activar() => Activo = true;
     public void Desactivar() => Activo = false;
@@ -88,11 +111,12 @@ public class Produto : Entity
 
     public void AdicionarProdutoImagem(ProdutoImagem produtoImagem)
     {
-        if (ProdutoImagemExistente(produtoImagem)) _produtoImagens.Remove(produtoImagem);
+        if (!ProdutoImagemExistente(produtoImagem)) 
+        {
+            produtoImagem.AssociarAoProduto(Id);
 
-        produtoImagem.AssociarAoProduto(Id);
-
-        _produtoImagens.Add(produtoImagem);
+            _produtoImagens.Add(produtoImagem);
+        }
     }
 
     public void RemoverProdutoImagem(ProdutoImagem produtoImagem)
@@ -107,11 +131,13 @@ public class Produto : Entity
 
     public void AdicionarProdutoRelacionado(ProdutoRelacionado produtoRelacionado)
     {
-        if (ProdutoRelacionadoExistente(produtoRelacionado)) _produtoRelacionados.Remove(produtoRelacionado);
+        if (!ProdutoRelacionadoExistente(produtoRelacionado))
+        {
+            produtoRelacionado.AssociarAoProduto(Id);
 
-        produtoRelacionado.AssociarAoProduto(Id);
+            _produtoRelacionados.Add(produtoRelacionado);
+        }
 
-        _produtoRelacionados.Add(produtoRelacionado);
     }
     public void RemoverProdutoRelacionado(ProdutoRelacionado produtoRelacionado)
     {

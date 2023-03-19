@@ -22,10 +22,6 @@ internal class ActualizarClienteValidation : AbstractValidator<ActualizarCliente
         RuleFor(c => c.TelefonePrincipal)
             .NotEmpty().WithMessage("O telefone principal deve ser informado");
 
-        RuleFor(c => c.Email)
-            .NotEmpty().WithMessage("O email deve ser informado")
-            .EmailAddress().WithMessage("O email informado é inválido");
-
         RuleFor(c => c.Rua)
             .NotEmpty().WithMessage("A Rua deve ser deve ser informada");
 

@@ -46,5 +46,22 @@ global using MeusLegumes.Domain.Contexts.Pacotes.Repositories;
 global using MeusLegumes.Domain.Contexts.Produtos.Repositories;
 global using MeusLegumes.Infrastructure.Repositories.Pacotes;
 global using MeusLegumes.Infrastructure.Repositories.Produtos;
+global using MeusLegumes.API.Helpers.ImageUpload;
+global using MeusLegumes.Application.Contexts.Pacotes;
+global using MeusLegumes.Application.Contexts.Identity.Services;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using MeusLegumes.Application.Contexts.Identity.Options;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
+global using Microsoft.AspNetCore.Identity;
+global using MediatR;
+global using MeusLegumes.Application.Contexts.Identity.Commands;
+global using MeusLegumes.Application.Contexts.Identity.Models;
+
+
+
+
+
+
 
 

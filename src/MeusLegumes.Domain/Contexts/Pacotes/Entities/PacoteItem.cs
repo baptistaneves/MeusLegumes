@@ -1,6 +1,6 @@
 ﻿namespace MeusLegumes.Domain.Contexts.Pacotes.Entities;
 
-public class PacoteProduto : Entity
+public class PacoteItem : Entity
 {
     public Guid PacoteId { get; private set; }
     public Guid ProdutoId { get; private set; }
@@ -13,9 +13,9 @@ public class PacoteProduto : Entity
     public Unidade Unidade { get; private set; }
 
     //For EF
-    public PacoteProduto() { }
+    public PacoteItem() { }
 
-    public PacoteProduto(Guid produtoId, Guid unidadeId, int quantidade)
+    public PacoteItem(Guid produtoId, Guid unidadeId, int quantidade)
     {
         ProdutoId = produtoId;
         UnidadeId = unidadeId;

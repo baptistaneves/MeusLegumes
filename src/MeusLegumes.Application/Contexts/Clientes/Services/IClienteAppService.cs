@@ -2,7 +2,7 @@
 
 public interface IClienteAppService : IDisposable
 {
-    Task Adicionar(CriarCliente cliente, CancellationToken cancellationToken);
+    Task Adicionar(CriarCliente cliente, string identityUserId, CancellationToken cancellationToken);
     Task Actualizar(ActualizarCliente cliente, CancellationToken cancellationToken);
     Task Remover(Guid id, CancellationToken cancellationToken);
     Task<Cliente> ObterPorIdAsync(Guid id);

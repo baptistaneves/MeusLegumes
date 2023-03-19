@@ -5,10 +5,15 @@
 public class ProdutosController : BaseController
 {
     private readonly IProdutoAppService _produtoAppService;
+    private readonly IImageUploadService _imageUploadService;
+    private readonly string _folderPath = "/wwwroot/imagens/produtos";
     public ProdutosController(INotifier notifier,
-                              IProdutoAppService produtoAppService) : base(notifier)
+                              IProdutoAppService produtoAppService,
+                              IWebHostEnvironment env,
+                              IImageUploadService imageUploadService) : base(notifier)
     {
         _produtoAppService = produtoAppService;
+        _imageUploadService = imageUploadService;
     }
 
     [HttpGet(ApiRoutes.Produto.ObterProdutos)]
@@ -29,75 +34,64 @@ public class ProdutosController : BaseController
 
     [HttpPost(ApiRoutes.Produto.NovoProduto)]
     [ValidateModel]
-    public async Task<ActionResult> NovoProduto([FromForm] CriarProduto produto, CancellationToken cancellationToken)
+    public async Task<ActionResult> NovoProduto([FromBody] CriarProduto produto, CancellationToken cancellationToken)
     {
-        var imgPrefixo = Guid.NewGuid() + "_";
-
-        if (!await Upload(produto.Imagem, imgPrefixo))
-        {
-            return Response(produto);
-        }
-
-        var fileName = imgPrefixo + produto.Imagem.FileName;
-
-        produto.AdicionarImagemUrl(fileName);
-
         await _produtoAppService.Adicionar(produto, cancellationToken);
+
+        if (!OperationIsValid()) _imageUploadService.DeleteImage(produto.UrlImagemPrincipal, _folderPath);
 
         return Response(produto);
     }
 
     [HttpPut(ApiRoutes.Produto.ActualizarProduto)]
     [ValidateModel]
-    public async Task<ActionResult> ActualizarProduto([FromBody] ActualizarProduto produto, CancellationToken cancellationToken)
+    public async Task<ActionResult> ActualizarProduto([FromBody] ActualizarProduto produtoActualizado, CancellationToken cancellationToken)
     {
-        await _produtoAppService.Actualizar(produto, cancellationToken);
+        var produtoAntigo = await _produtoAppService.Actualizar(produtoActualizado, cancellationToken);
 
-        return Response(produto);
+        if (OperationIsValid() && produtoActualizado.UrlImagemPrincipal != produtoAntigo.UrlImagemPrincipal)
+            _imageUploadService.DeleteImage(produtoAntigo.UrlImagemPrincipal, _folderPath);
+
+        return Response(produtoActualizado);
     }
 
     [HttpDelete(ApiRoutes.Produto.RemoverProduto)]
     [ValidateGuid("id")]
     public async Task<ActionResult> RemoverProduto(Guid id, CancellationToken cancellationToken)
     {
-        var produto = await _produtoAppService.ObterPorIdAsync(id);
+        var produto = await _produtoAppService.ObterProdutoComImagensProdutos(id);
         if (produto is null) return NotFound();
 
         await _produtoAppService.Remover(id, cancellationToken);
 
+        if (OperationIsValid()) 
+        {
+            _imageUploadService.DeleteImage(produto.UrlImagemPrincipal, _folderPath);
+            if (produto.ProdutosImagem.Any())
+            {
+                foreach (var produtoImage in produto.ProdutosImagem)
+                {
+                    _imageUploadService.DeleteImage(produtoImage.UrlImagem, _folderPath);
+                }
+            }
+        }
+
         return Response();
     }
 
-    [NonAction]
-    private async Task<bool> Upload(IFormFile arquivo, string imgPrefixo)
+    [HttpPost(ApiRoutes.Produto.UploadImagem)]
+    public ActionResult UploadImagem(IFormFile file)
     {
-        if (arquivo == null || arquivo.Length == 0)
-        {
-            Notify("Forneça uma imagem para este produto!");
-            return false;
-        }
+        var urlImagem = _imageUploadService.UploadImage(file, _folderPath);
 
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens/produtos", imgPrefixo + arquivo.FileName);
-
-        if (System.IO.File.Exists(path))
-        {
-            Notify("Já existe um arquivo come este nome!");
-            return false;
-        }
-
-        using (var stream = new FileStream(path, FileMode.Create))
-        {
-            await arquivo.CopyToAsync(stream);
-        }
-
-        return true;
+        return new JsonResult(urlImagem);
     }
 
-    [NonAction]
-    public void DeleteImage(string imageFileName)
+    [HttpPost(ApiRoutes.Produto.UploadMultiplasImagens)]
+    public ActionResult UploadMultiplasImagens(List<IFormFile> files)
     {
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens/produtos/" + imageFileName);
+        var fileNames = _imageUploadService.UploadMultipleImages(files, _folderPath);
 
-        if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
+        return new JsonResult(fileNames);
     }
 }

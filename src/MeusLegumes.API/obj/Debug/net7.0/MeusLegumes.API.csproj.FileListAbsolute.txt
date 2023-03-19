@@ -1,5 +1,6 @@
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\appsettings.Development.json
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\appsettings.json
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MeusLegumes.API.staticwebassets.runtime.json
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MeusLegumes.API.exe
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MeusLegumes.API.deps.json
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MeusLegumes.API.runtimeconfig.json
@@ -9,10 +10,15 @@ D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\AutoMappe
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Azure.Core.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Azure.Identity.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\DocumentFormat.OpenXml.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\FluentValidation.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Humanizer.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MediatR.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MediatR.Contracts.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Versioning.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
@@ -24,6 +30,9 @@ D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Identity.Client.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
@@ -36,6 +45,7 @@ D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Mono.TextTemplating.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\NSwag.Annotations.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -43,6 +53,7 @@ D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.Co
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.Drawing.Common.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.IO.Packaging.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.Memory.Data.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.Runtime.Caching.dll
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
@@ -87,4 +98,3 @@ D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\refint\Me
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\MeusLegumes.API.pdb
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\MeusLegumes.API.genruntimeconfig.cache
 D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\obj\Debug\net7.0\ref\MeusLegumes.API.dll
-D:\Projectos\Web\work\MeusLegumes\src\MeusLegumes.API\bin\Debug\net7.0\MeusLegumes.API.staticwebassets.runtime.json

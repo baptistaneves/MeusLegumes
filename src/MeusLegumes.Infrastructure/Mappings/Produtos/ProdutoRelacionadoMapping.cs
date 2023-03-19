@@ -8,6 +8,12 @@ internal partial class ProdutoMapping
         {
             builder.HasKey(x => x.Id);
 
+            builder.HasOne(pr => pr.Produto)
+              .WithMany(p => p.ProdutosRelacionado)
+              .HasForeignKey(pr => pr.ProdutoId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Cascade);
+
             builder.ToTable("ProdutoRelacionados");
         }
     }

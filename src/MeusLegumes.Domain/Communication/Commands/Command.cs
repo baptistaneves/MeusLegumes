@@ -1,6 +1,6 @@
 ﻿namespace MeusLegumes.Domain.Communication.Commands;
 
-public class Command : IRequest<bool>
+public class Command<T> : IRequest<T>
 {
     public ValidationResult ValidationResult { get; set; }
 

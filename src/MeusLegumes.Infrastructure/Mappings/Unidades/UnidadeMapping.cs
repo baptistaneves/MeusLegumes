@@ -10,12 +10,14 @@ internal class UnidadeMapping : IEntityTypeConfiguration<Unidade>
            .HasColumnType("varchar(150)");
 
         builder.HasMany(u => u.Produtos)
-       .WithOne(p => p.Unidade)
-       .HasForeignKey(p => p.UnidadeId);
+           .WithOne(p => p.Unidade)
+           .HasForeignKey(p => p.UnidadeId)
+           .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.HasMany(p => p.PacotesProduto)
-         .WithOne(pr => pr.Unidade)
-         .HasForeignKey(pr => pr.UnidadeId);
+            .WithOne(pr => pr.Unidade)
+            .HasForeignKey(pr => pr.UnidadeId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("Unidades");
     }

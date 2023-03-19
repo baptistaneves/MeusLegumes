@@ -31,9 +31,10 @@ internal partial class PacoteMapping : IEntityTypeConfiguration<Pacote>
         builder.Property(p => p.Activo)
          .HasColumnType("bit");
 
-        builder.HasMany(p => p.PacotesProduto)
+        builder.HasMany(p => p.PacoteItems)
           .WithOne(pr => pr.Pacote)
-          .HasForeignKey(pr => pr.PacoteId);
+          .HasForeignKey(pr => pr.PacoteId)
+          .OnDelete(DeleteBehavior.Cascade);
 
         builder.ToTable("Pacotes");
     }

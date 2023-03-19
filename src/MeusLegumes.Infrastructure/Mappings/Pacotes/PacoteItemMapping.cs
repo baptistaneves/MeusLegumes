@@ -2,9 +2,9 @@
 
 internal partial class PacoteMapping
 {
-    internal class PacoteProdutoMapping : IEntityTypeConfiguration<PacoteProduto>
+    internal class PacoteItemMapping : IEntityTypeConfiguration<PacoteItem>
     {
-        public void Configure(EntityTypeBuilder<PacoteProduto> builder)
+        public void Configure(EntityTypeBuilder<PacoteItem> builder)
         {
             builder.HasKey(x => x.Id);
 
@@ -12,7 +12,7 @@ internal partial class PacoteMapping
                 .IsRequired()
                 .HasColumnType("int");
 
-            builder.ToTable("PacotesProduto");
+            builder.ToTable("PacoteItems");
         }
     }
 }

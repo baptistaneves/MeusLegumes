@@ -24,9 +24,9 @@ internal class ActualizarPacoteValidation : AbstractValidator<ActualizarPacote>
            .GreaterThan(20).WithMessage("O valor do preço promocional deve ser maior que vinte (20)");
         });
 
-        When(p => p.PacoteProdutos.Any(), () =>
+        When(p => p.Items.Any(), () =>
         {
-            RuleForEach(p => p.PacoteProdutos).SetValidator(new ActualizarPacoteProdutoValidation());
+            RuleForEach(p => p.Items).SetValidator(new CriarPacoteProdutoValidation());
 
         });
 

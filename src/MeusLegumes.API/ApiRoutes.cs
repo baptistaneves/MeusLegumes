@@ -71,6 +71,8 @@ public class ApiRoutes
         public const string NovoProduto = "novo-produto";
         public const string ActualizarProduto = "actualizar-produto";
         public const string RemoverProduto = "remover-produto/{id}";
+        public const string UploadImagem = "upload-de-imagem";
+        public const string UploadMultiplasImagens = "upload-de-multiplas-imagens";
     }
 
     public static class Pacote
@@ -80,5 +82,12 @@ public class ApiRoutes
         public const string NovoPacote = "novo-pacote";
         public const string ActualizarPacote = "actualizar-pacote";
         public const string RemoverPacote = "remover-pacote/{id}";
+        public const string UploadImagem = "upload-de-imagem";
+    }
+
+    public static class Usuario
+    {
+        public const string CriarUsuario = "criar-usuario";
+        public const string Login = "login";
     }
 }

@@ -23,11 +23,11 @@ public class PacoteAppService : BaseService, IPacoteAppService
 
         var novoPacote = _mapper.Map<Pacote>(pacote);
 
-        if(pacote.PacoteProdutos.Any())
+        if(pacote.PacoteItems.Any())
         {
-            foreach (var pacoteProduto in pacote.PacoteProdutos)
+            foreach (var pacoteProduto in pacote.PacoteItems)
             {
-                novoPacote.AdicionarPacoteProduto(new PacoteProduto(pacoteProduto.ProdutoId, pacoteProduto.UnidadeId, pacoteProduto.Quantidade));
+                novoPacote.AdicionarPacoteProduto(new PacoteItem(pacoteProduto.ProdutoId, pacoteProduto.UnidadeId, pacoteProduto.Quantidade));
             }
         }
 
@@ -39,12 +39,6 @@ public class PacoteAppService : BaseService, IPacoteAppService
     {
         if (!Validate(new ActualizarPacoteValidation(), pacoteActualizado)) return;
 
-        if (!_pacoteRepository.BuscarAsync(p => p.Id == pacoteActualizado.Id).Result.Any())
-        {
-            Notify(PacoteErrorMessages.PacoteNaoEncotrado);
-            return;
-        }
-
         if (_pacoteRepository.BuscarAsync(c => c.Nome == pacoteActualizado.Nome && c.Id != pacoteActualizado.Id).Result.Any())
         {
             Notify(PacoteErrorMessages.PacoteJaExiste);
@@ -53,11 +47,16 @@ public class PacoteAppService : BaseService, IPacoteAppService
 
         var pacote = _mapper.Map<Pacote>(pacoteActualizado);
 
-        if (pacoteActualizado.PacoteProdutos.Any())
+        if (pacoteActualizado.Items.Any())
         {
-            foreach (var pacoteProduto in pacoteActualizado.PacoteProdutos)
+            foreach (var pacoteProduto in pacoteActualizado.Items)
             {
-                pacote.AdicionarPacoteProduto(new PacoteProduto(pacoteProduto.ProdutoId, pacoteProduto.UnidadeId, pacoteProduto.Quantidade));
+                if(!await _pacoteRepository.PacoteItemJaExiste(pacote.Id, pacoteProduto.ProdutoId)) 
+                { 
+                    var pacoteItem = new PacoteItem(pacoteProduto.ProdutoId, pacoteProduto.UnidadeId, pacoteProduto.Quantidade);
+                    pacoteItem.AssociarAoPacote(pacote.Id);
+                    _pacoteRepository.AdicionarPacoteItem(pacoteItem);
+                }
             }
         }
 

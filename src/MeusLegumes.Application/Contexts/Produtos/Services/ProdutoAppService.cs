@@ -25,15 +25,15 @@ public class ProdutoAppService : BaseService, IProdutoAppService
         {
             foreach (var produtoRelacionado in produto.ProdutosRelacionados)
             {
-                novoProduto.AdicionarProdutoRelacionado(new ProdutoRelacionado(produtoRelacionado.ProdutoRelacionadoId));
+                novoProduto.AdicionarProdutoRelacionado(new ProdutoRelacionado(produtoRelacionado));
             }
         }
 
-        if (produto.ProdutoImagens.Any())
+        if (produto.ImagensOpcionaisUrls.Any())
         {
-            foreach (var produtoImagem in produto.ProdutoImagens)
+            foreach (var imagemUrl in produto.ImagensOpcionaisUrls)
             {
-                novoProduto.AdicionarProdutoImagem(new ProdutoImagem(produtoImagem.UrlImagem));
+                novoProduto.AdicionarProdutoImagem(new ProdutoImagem(imagemUrl));
             }
         }
 
@@ -42,47 +42,60 @@ public class ProdutoAppService : BaseService, IProdutoAppService
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task Actualizar(ActualizarProduto produtoActualizado, CancellationToken cancellationToken)
+    public async Task<Produto> Actualizar(ActualizarProduto actProduto, CancellationToken cancellationToken)
     {
-        if (!Validate(new ActualizarProdutoValidation(), produtoActualizado)) return;
+        if (!Validate(new ActualizarProdutoValidation(), actProduto)) return null;
 
-        if (!_produtoRepository.BuscarAsync(p => p.Id == produtoActualizado.Id).Result.Any())
+        var produto = await _produtoRepository.ObterPorIdAsync(actProduto.Id);
+
+        if (produto is null)
         {
             Notify(ProdutoErrorMessages.ProdutoNaoEncotrado);
-            return;
+            return null;
         }
 
-        if (_produtoRepository.BuscarAsync(c => c.Nome == produtoActualizado.Nome && c.Id != produtoActualizado.Id).Result.Any())
+        var produtoAntigo = produto;
+
+        if (_produtoRepository.BuscarAsync(c => c.Nome == actProduto.Nome && c.Id != actProduto.Id).Result.Any())
         {
             Notify(ProdutoErrorMessages.ProdutoJaExiste);
-            return;
+            return null;
         }
 
-        var produto = _mapper.Map<Produto>(produtoActualizado);
+        produto.ActualizarProduto(actProduto.CategoriaId, actProduto.UnidadeId, actProduto.ImpostoId, actProduto.MotivoId, actProduto.Nome, actProduto.Descricao, actProduto.PrecoUnitario, actProduto.UrlImagemPrincipal, actProduto.EmPromocao, actProduto.PrecoPromocional, actProduto.Destaque, actProduto.NovoLancamento, actProduto.MaisVendido, actProduto.MaisProcurado, actProduto.EmEstoque, actProduto.Activo, actProduto.Observacao);
 
-        if (produtoActualizado.ProdutosRelacionados.Any())
+        if (actProduto.ProdutosRelacionados.Any())
         {
-            foreach (var produtoRelacionado in produtoActualizado.ProdutosRelacionados)
+            foreach (var produtoRelacionadoId in actProduto.ProdutosRelacionados)
             {
-                produto.AdicionarProdutoRelacionado(new ProdutoRelacionado(produtoRelacionado.ProdutoRelacionadoId));
+                if(!await _produtoRepository.ExisteRelacaoComProduto(produto.Id, produtoRelacionadoId)) 
+                {
+                    var produtoRelacionado = new ProdutoRelacionado(produtoRelacionadoId);
+                    produtoRelacionado.AssociarAoProduto(actProduto.Id);
+                    _produtoRepository.AdicionarProdutoRelacionado(produtoRelacionado);
+                }
             }
         }
 
-        if (produtoActualizado.produtoImagens.Any())
+        if (actProduto.ImagensOpcionaisUrls.Any())
         {
-            foreach (var produtoImagem in produtoActualizado.produtoImagens)
+            foreach (var imagemUrl in actProduto.ImagensOpcionaisUrls)
             {
-                produto.AdicionarProdutoImagem(new ProdutoImagem(produtoImagem.UrlImagem));
+                var produtoImagem = new ProdutoImagem(imagemUrl);
+                produtoImagem.AssociarAoProduto(produto.Id);
+                _produtoRepository.AdicionarProdutoImagem(produtoImagem);
             }
         }
 
         _produtoRepository.Actualizar(produto);
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+
+        return produtoAntigo;
     }
 
     public async Task Remover(Guid id, CancellationToken cancellationToken)
     {
-        if (_produtoRepository.ObterProdutosComPacotes(id).Result.PacotesProduto.Any())
+        if (_produtoRepository.ObterProdutoComPacotes(id).Result.PacotesProduto.Any())
         {
             Notify(ProdutoErrorMessages.ProdutoNaoPodeSerRemovido);
             return;
@@ -97,6 +110,11 @@ public class ProdutoAppService : BaseService, IProdutoAppService
         return await _produtoRepository.ObterPorIdAsync(id);
     }
 
+    public async Task<Produto> ObterProdutoComImagensProdutos(Guid id)
+    {
+        return await _produtoRepository.ObterProdutoComImagensProdutos(id);
+    }
+
     public async Task<IEnumerable<Produto>> ObterTodosAsync()
     {
         return await _produtoRepository.ObterTodosAsync();
@@ -106,4 +124,5 @@ public class ProdutoAppService : BaseService, IProdutoAppService
     {
         _produtoRepository?.Dispose();
     }
+
 }

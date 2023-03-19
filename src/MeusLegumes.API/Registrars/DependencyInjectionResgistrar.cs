@@ -12,6 +12,12 @@ public class DependencyInjectionResgistrar : IWebApplicationBuilderRegistrar
         //Notifications
         builder.Services.AddScoped<INotifier, Notifier>();
 
+        //Jwt Service
+        builder.Services.AddScoped<JwtService>();
+
+        //ImageUpload
+        builder.Services.AddScoped<IImageUploadService, ImageUploadService>();
+
         //Categorias
         builder.Services.AddScoped<ICategoriaAppService, CategoriaAppService>();
         builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
@@ -43,6 +49,5 @@ public class DependencyInjectionResgistrar : IWebApplicationBuilderRegistrar
         //Pacotes
         builder.Services.AddScoped<IPacoteAppService, PacoteAppService>();
         builder.Services.AddScoped<IPacoteRepository, PacoteRepository>();
-
     }
 }

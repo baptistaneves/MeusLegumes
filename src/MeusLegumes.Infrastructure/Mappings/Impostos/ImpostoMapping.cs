@@ -17,7 +17,8 @@ internal class ImpostoMapping : IEntityTypeConfiguration<Imposto>
 
         builder.HasMany(i => i.Produtos)
             .WithOne(p => p.Imposto)
-            .HasForeignKey(p => p.ImpostoId);
+            .HasForeignKey(p => p.ImpostoId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("Impostos");
     }

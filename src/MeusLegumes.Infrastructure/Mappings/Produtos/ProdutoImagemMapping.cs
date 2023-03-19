@@ -12,6 +12,12 @@ internal partial class ProdutoMapping
                 .IsRequired()
                 .HasColumnType("varchar(255)");
 
+            builder.HasOne(pi => pi.Produto)
+              .WithMany(p => p.ProdutosImagem)
+              .HasForeignKey(pi => pi.ProdutoId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Cascade);
+
             builder.ToTable("ProdutoImagens");
         }
     }

@@ -11,7 +11,8 @@ internal class ProvinciaMapping : IEntityTypeConfiguration<Provincia>
 
         builder.HasMany(p => p.Municipios)
           .WithOne(m => m.Provincia)
-          .HasForeignKey(m => m.ProvinciaId);
+          .HasForeignKey(m => m.ProvinciaId)
+          .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("Provincias");
     }

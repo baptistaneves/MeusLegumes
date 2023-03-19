@@ -25,6 +25,9 @@ public class CriarCliente
     [EmailAddress(ErrorMessage = "O email informado é inválido")]
     public string Email { get; set; }
 
+    [Required(ErrorMessage = "A senha deve ser informado")]
+    public string Senha { get; set; }
+
     [Required(ErrorMessage = "O nome da rua deve ser informado")]
     public string Rua { get; set; }
 

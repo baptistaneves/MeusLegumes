@@ -11,7 +11,8 @@ internal class MunicipioMapping : IEntityTypeConfiguration<Municipio>
 
         builder.HasMany(m => m.Clientes)
          .WithOne(c => c.Municipio)
-         .HasForeignKey(c => c.MunicipioId);
+         .HasForeignKey(c => c.MunicipioId)
+         .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("Municipios");
     }

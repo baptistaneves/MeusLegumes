@@ -5,10 +5,13 @@
 public class ClientesController : BaseController
 {
     private readonly IClienteAppService _clienteAppService;
+    private readonly IMediator _mediator;
     public ClientesController(INotifier notifier,
-                                IClienteAppService clienteAppService) : base(notifier)
+                                IClienteAppService clienteAppService,
+                                IMediator mediator) : base(notifier)
     {
         _clienteAppService = clienteAppService;
+        _mediator = mediator;
     }
 
     [HttpGet(ApiRoutes.Cliente.ObterClientes)]
@@ -31,7 +34,12 @@ public class ClientesController : BaseController
     [ValidateModel]
     public async Task<ActionResult> NovoCliente([FromBody] CriarCliente cliente, CancellationToken cancellationToken)
     {
-        await _clienteAppService.Adicionar(cliente, cancellationToken);
+        var command = new CriarUsuarioCommand(cliente.Nome, cliente.Email, cliente.Senha, PerfilUsuario.CLIENTE);
+        var identity = await _mediator.Send(command, cancellationToken);
+
+        if (identity is null) return Response();
+
+        await _clienteAppService.Adicionar(cliente, identity.Id, cancellationToken);
 
         return Response(cliente);
     }

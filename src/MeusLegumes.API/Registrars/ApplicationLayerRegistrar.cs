@@ -1,4 +1,6 @@
-﻿namespace MeusLegumes.API.Registrars;
+﻿using MeusLegumes.Application.Contexts.Identity.Commands;
+
+namespace MeusLegumes.API.Registrars;
 
 public class ApplicationLayerRegistrar : IWebApplicationBuilderRegistrar
 {

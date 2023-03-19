@@ -1,6 +1,6 @@
 ﻿namespace MeusLegumes.Application.Contexts.Pacotes.Validations;
 
-internal class CriarPacoteProdutoValidation : AbstractValidator<CriarPacoteProduto>
+internal class CriarPacoteProdutoValidation : AbstractValidator<CriarPacoteItem>
 {
     public CriarPacoteProdutoValidation()
     {

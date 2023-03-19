@@ -30,13 +30,15 @@ global using MeusLegumes.Application.Contexts.Pacotes.Contracts;
 global using MeusLegumes.Domain.Contexts.Pacotes.Entities;
 global using MeusLegumes.Application.Contexts.Pacotes.Validations;
 global using MeusLegumes.Domain.Contexts.Pacotes.Repositories;
-
-
-
-
-
-
-
-
-
-
+global using MeusLegumes.Domain.Communication.Commands;
+global using MediatR;
+global using MeusLegumes.Application.Contexts.Identity.Commands;
+global using MeusLegumes.Application.Contexts.Identity.Models;
+global using MeusLegumes.Application.Contexts.Identity.Options;
+global using Microsoft.Extensions.Options;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
+global using MeusLegumes.Application.Contexts.Identity.Services;
+global using Microsoft.AspNetCore.Identity;

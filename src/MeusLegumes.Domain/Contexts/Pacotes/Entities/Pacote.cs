@@ -12,8 +12,8 @@ public class Pacote : Entity
 
     //EF Rel.
 
-    private readonly List<PacoteProduto> _pacoteProdutos = new List<PacoteProduto>();
-    public IEnumerable<PacoteProduto> PacotesProduto { get { return _pacoteProdutos; } }
+    private readonly List<PacoteItem> _pacoteItems = new List<PacoteItem>();
+    public IEnumerable<PacoteItem> PacoteItems { get { return _pacoteItems; } }
 
     public Pacote(string nome, string descricao, decimal precoUnitario, bool promocao, decimal precoPromocional, string imagemUrl, bool activo)
     {
@@ -29,6 +29,17 @@ public class Pacote : Entity
     //EF Rel.
     public Pacote() { }
 
+    public void ActualizarPacote(string nome, string descricao, decimal precoUnitario, bool promocao, decimal precoPromocional, string imagemUrl, bool activo)
+    {
+        Nome = nome;
+        Descricao = descricao;
+        PrecoUnitario = precoUnitario;
+        EmPromocao = promocao;
+        PrecoPromocional = precoPromocional;
+        ImagemUrl = imagemUrl;
+        Activo = activo;
+    }
+
     public void Activar() => Activo = true;
     public void Desactivar() => Activo = false;
 
@@ -37,22 +48,23 @@ public class Pacote : Entity
 
     public void AlterarImagem(string imagemUrl) => ImagemUrl = imagemUrl;
 
-    private bool PacoteProdutoExistente(PacoteProduto pacoteProduto)
+    private bool PacoteItemExistente(PacoteItem item)
     {
-        return _pacoteProdutos.Any(p => p.Id == pacoteProduto.Id);
+        return _pacoteItems.Any(p => p.Id == item.Id);
     }
 
-    public void AdicionarPacoteProduto(PacoteProduto pacoteProduto)
+    public void AdicionarPacoteProduto(PacoteItem item)
     {
-        if(PacoteProdutoExistente(pacoteProduto)) _pacoteProdutos.Remove(pacoteProduto);
+        if (!PacoteItemExistente(item))
+        {
+            item.AssociarAoPacote(Id);
 
-        pacoteProduto.AssociarAoPacote(Id);
-
-        _pacoteProdutos.Add(pacoteProduto);
+            _pacoteItems.Add(item);
+        }
     }
 
-    public void RemoverPacoteProduto(PacoteProduto pacoteProduto)
+    public void RemoverPacoteItem(PacoteItem item)
     {
-        _pacoteProdutos.Remove(pacoteProduto);
+        _pacoteItems.Remove(item);
     }
 }

@@ -20,7 +20,8 @@ internal class MotivoIsencaoIvaMapping : IEntityTypeConfiguration<MotivoIsencaoI
 
         builder.HasMany(m => m.Produtos)
            .WithOne(p => p.MotivoIsencaoIva)
-           .HasForeignKey(p => p.MotivoId);
+           .HasForeignKey(p => p.MotivoId)
+           .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("MotivosIsencaoIva");
     }

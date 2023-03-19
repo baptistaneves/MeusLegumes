@@ -12,17 +12,19 @@ public class ClienteAppService : BaseService, IClienteAppService
         _clienteRepository = clienteRepository;
     }
 
-    public async Task Adicionar(CriarCliente cliente, CancellationToken cancellationToken)
+    public async Task Adicionar(CriarCliente novoCliente, string identityUserId, CancellationToken cancellationToken)
     {
-        if (!Validate(new CriarClienteValidation(), cliente)) return;
+        if (!Validate(new CriarClienteValidation(), novoCliente)) return;
 
-        if(_clienteRepository.BuscarAsync(c => c.Email == cliente.Email).Result.Any())
+        if(_clienteRepository.BuscarAsync(c => c.Email == novoCliente.Email).Result.Any())
         {
             Notify(ClientesErrorMessages.ClienteJaExiste);
             return;
         }
 
-        _clienteRepository.Adicionar(_mapper.Map<Cliente>(cliente));
+        var cliente = new Cliente(novoCliente.Nome, identityUserId, novoCliente.Tipo, novoCliente.NumeroContribuinte, novoCliente.TelefonePrincipal, novoCliente.TelefoneAlternativo, novoCliente.Email, novoCliente.MunicipioId, novoCliente.Rua, novoCliente.Casa, novoCliente.CodigoPostal, novoCliente.PontoDeReferencia);
+        
+        _clienteRepository.Adicionar(cliente);
         await _clienteRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
@@ -33,12 +35,6 @@ public class ClienteAppService : BaseService, IClienteAppService
         if(!_clienteRepository.BuscarAsync(c => c.Id == cliente.Id).Result.Any())
         {
             Notify(ClientesErrorMessages.ClienteNaoEncontrado);
-            return;
-        }
-
-        if (_clienteRepository.BuscarAsync(c => c.Email == cliente.Email && c.Id != cliente.Id).Result.Any())
-        {
-            Notify(ClientesErrorMessages.ClienteJaExiste);
             return;
         }
 

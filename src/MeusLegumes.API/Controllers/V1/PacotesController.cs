@@ -5,10 +5,15 @@
 public class PacotesController : BaseController
 {
     private readonly IPacoteAppService _pacoteAppService;
+    private readonly IImageUploadService _imageUploadService;
+    private readonly string _folderPath = "/wwwroot/imagens/pacotes";
+
     public PacotesController(INotifier notifier,
-                              IPacoteAppService pacoteAppService) : base(notifier)
+                             IPacoteAppService pacoteAppService,
+                             IImageUploadService imageUploadService) : base(notifier)
     {
         _pacoteAppService = pacoteAppService;
+        _imageUploadService = imageUploadService;
     }
 
     [HttpGet(ApiRoutes.Pacote.ObterPacotes)]
@@ -31,29 +36,30 @@ public class PacotesController : BaseController
     [ValidateModel]
     public async Task<ActionResult> NovoPacote([FromBody] CriarPacote pacote, CancellationToken cancellationToken)
     {
-        var imgPrefixo = Guid.NewGuid() + "_";
-
-        if (!await Upload(pacote.Imagem, imgPrefixo))
-        {
-            return Response(pacote);
-        }
-
-        var fileName = imgPrefixo + pacote.Imagem.FileName;
-
-        pacote.AdicionarImagemUrl(fileName);
-
         await _pacoteAppService.Adicionar(pacote, cancellationToken);
+
+        if (!OperationIsValid()) _imageUploadService.DeleteImage(pacote.ImagemUrl, _folderPath);
 
         return Response(pacote);
     }
 
     [HttpPut(ApiRoutes.Pacote.ActualizarPacote)]
     [ValidateModel]
-    public async Task<ActionResult> ActualizarPacote([FromBody] ActualizarPacote pacote, CancellationToken cancellationToken)
+    public async Task<ActionResult> ActualizarPacote([FromBody] ActualizarPacote pacoteActualizado, CancellationToken cancellationToken)
     {
-        await _pacoteAppService.Actualizar(pacote, cancellationToken);
+        var pacote = await _pacoteAppService.ObterPorIdAsync(pacoteActualizado.Id);
+        if (pacote is null)
+        {
+            Notify(PacoteErrorMessages.PacoteNaoEncotrado);
+            return Response();
+        }
 
-        return Response(pacote);
+        await _pacoteAppService.Actualizar(pacoteActualizado, cancellationToken);
+
+        if (OperationIsValid() && pacoteActualizado.ImagemUrl != pacote.ImagemUrl) 
+            _imageUploadService.DeleteImage(pacote.ImagemUrl, _folderPath);
+
+        return Response(pacoteActualizado);
     }
 
     [HttpDelete(ApiRoutes.Pacote.RemoverPacote)]
@@ -65,39 +71,17 @@ public class PacotesController : BaseController
 
         await _pacoteAppService.Remover(id, cancellationToken);
 
+        if(OperationIsValid()) _imageUploadService.DeleteImage(pacote.ImagemUrl, _folderPath);
+
         return Response();
     }
 
-    [NonAction]
-    private async Task<bool> Upload(IFormFile arquivo, string imgPrefixo)
+    [HttpPost(ApiRoutes.Pacote.UploadImagem)]
+    public ActionResult UploadImagem(IFormFile file)
     {
-        if (arquivo == null || arquivo.Length == 0)
-        {
-            Notify("Forneça uma imagem para este pacote!");
-            return false;
-        }
+        var urlImagem = _imageUploadService.UploadImage(file, _folderPath);
 
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens/pacotes", imgPrefixo + arquivo.FileName);
-
-        if (System.IO.File.Exists(path))
-        {
-            Notify("Já existe um arquivo come este nome!");
-            return false;
-        }
-
-        using (var stream = new FileStream(path, FileMode.Create))
-        {
-            await arquivo.CopyToAsync(stream);
-        }
-
-        return true;
+        return new JsonResult(urlImagem);
     }
 
-    [NonAction]
-    public void DeleteImage(string imageFileName)
-    {
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens/pacotes/" + imageFileName);
-
-        if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
-    }
 }
