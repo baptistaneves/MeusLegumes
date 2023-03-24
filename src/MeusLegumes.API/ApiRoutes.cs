@@ -90,4 +90,15 @@ public class ApiRoutes
         public const string CriarUsuario = "criar-usuario";
         public const string Login = "login";
     }
+
+    public class Pedido
+    {
+        public const string MeuCarrinho = "meu-carrinho";
+        public const string RemoverItemDoCarrinho = "remover-item-no-carrinho";
+        public const string ActualizarItemNoCarrinho = "actualizar-item-no-carrinho";
+        public const string AdicionarItemNoCarrinho = "adicionar-item-no-carrinho";
+        public const string ResumoDaCompra = "resumo-da-compra";
+        public const string IniciarPedido = "iniciar-pedido";
+        public const string FinalizarPedido = "finalizar-pedido";
+    }
 }

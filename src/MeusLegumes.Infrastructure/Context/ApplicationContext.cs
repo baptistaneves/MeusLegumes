@@ -1,4 +1,6 @@
-﻿namespace MeusLegumes.Infrastructure.Context;
+﻿using MeusLegumes.Domain.Contexts.Pedidos.Entities;
+
+namespace MeusLegumes.Infrastructure.Context;
 
 public class ApplicationContext : IdentityDbContext, IUnitOfWork
 {
@@ -13,7 +15,10 @@ public class ApplicationContext : IdentityDbContext, IUnitOfWork
     public DbSet<ProdutoRelacionado> ProdutoRelacionados { get; set; }
     public DbSet<ProdutoImagem> ProdutoImagens { get; set; }
     public DbSet<Pacote> Pacotes { get; set; }
-    public DbSet<PacoteItem> PacoteItems { get; set; }
+    public DbSet<PacoteItem> PacoteItens { get; set; }
+    public DbSet<Pedido> Pedidos { get; set; }
+    public DbSet<PedidoItemPacote> PedidoItensPacote { get; set; }
+    public DbSet<PedidoItem> PedidoItensProduto { get; set; }
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
@@ -22,6 +27,7 @@ public class ApplicationContext : IdentityDbContext, IUnitOfWork
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
 
         //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+        modelBuilder.HasSequence<int>("CODIGO_PEDIDO").StartsAt(100).IncrementsBy(1);
 
         base.OnModelCreating(modelBuilder);
     }

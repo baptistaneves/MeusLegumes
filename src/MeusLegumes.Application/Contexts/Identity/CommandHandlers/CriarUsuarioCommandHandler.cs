@@ -18,6 +18,8 @@ public class CriarUsuarioCommandHandler : IRequestHandler<CriarUsuarioCommand, I
 
     public async Task<IdentityResponse> Handle(CriarUsuarioCommand request, CancellationToken cancellationToken)
     {
+        if (!ValidarComando(request)) return null;
+
         var identityUser = await CriarUsuario(request.Email, request.Password, cancellationToken);
         if (identityUser is null) return null;
 
@@ -67,5 +69,15 @@ public class CriarUsuarioCommandHandler : IRequestHandler<CriarUsuarioCommand, I
         return true;
     }
 
-    
+    private bool ValidarComando(CriarUsuarioCommand command)
+    {
+        if (command.IsValid()) return true;
+
+        foreach (var error in command.ValidationResult.Errors)
+        {
+            _notifier.Handle(new Notification(error.ErrorMessage));
+        }
+
+        return false;
+    }
 }

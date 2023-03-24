@@ -12,4 +12,6 @@ global using MediatR;
 global using FluentValidation.Results;
 global using MeusLegumes.Domain.Communication.Commands;
 global using MeusLegumes.Domain.Communication.Notifications;
+global using MeusLegumes.Domain.Contexts.Pedidos.Entities;
+
 

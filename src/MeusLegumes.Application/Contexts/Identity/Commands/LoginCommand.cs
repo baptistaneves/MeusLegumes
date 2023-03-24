@@ -1,6 +1,4 @@
-﻿using MeusLegumes.Application.Contexts.Identity.Models;
-
-namespace MeusLegumes.Application.Contexts.Identity.Commands;
+﻿namespace MeusLegumes.Application.Contexts.Identity.Commands;
 
 public class LoginCommand : Command<IdentityResponse>
 {
@@ -12,5 +10,11 @@ public class LoginCommand : Command<IdentityResponse>
     {
         Email = email;
         Password = password;
+    }
+
+    public override bool IsValid()
+    {
+        var validationResult = new LoginValidation().Validate(this);
+        return validationResult.IsValid;    
     }
 }

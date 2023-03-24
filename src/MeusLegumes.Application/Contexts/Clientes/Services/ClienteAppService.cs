@@ -53,6 +53,11 @@ public class ClienteAppService : BaseService, IClienteAppService
         return await _clienteRepository.ObterPorIdAsync(id);
     }
 
+    public async Task<Cliente> OterClientePorUserIdentityId(string userIdentityId)
+    {
+        return await _clienteRepository.OterClientePorUserIdentityId(userIdentityId);
+    }
+
     public async Task<IEnumerable<Cliente>> ObterTodosAsync()
     {
         return await _clienteRepository.ObterTodosAsync();
@@ -62,5 +67,6 @@ public class ClienteAppService : BaseService, IClienteAppService
     {
         _clienteRepository.Dispose();
     }
+
 }
 

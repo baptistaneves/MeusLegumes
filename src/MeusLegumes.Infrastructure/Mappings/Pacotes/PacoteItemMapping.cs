@@ -12,7 +12,7 @@ internal partial class PacoteMapping
                 .IsRequired()
                 .HasColumnType("int");
 
-            builder.ToTable("PacoteItems");
+            builder.ToTable("PacoteItens");
         }
     }
 }

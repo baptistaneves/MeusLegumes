@@ -20,6 +20,8 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, IdentityRespons
 
     public async Task<IdentityResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
+        if (!ValidarComando(request)) return null;
+
         var identityUser = await _userManager.FindByEmailAsync(request.Email);
         if (identityUser is null)
         {
@@ -48,5 +50,17 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, IdentityRespons
             Nome = identityUser.UserName,
             Token = await _jwtService.GetJwtString(identityUser)
         };
+    }
+
+    private bool ValidarComando(LoginCommand command)
+    {
+        if (command.IsValid()) return true;
+
+        foreach (var error in command.ValidationResult.Errors)
+        {
+            _notifier.Handle(new Notification(error.ErrorMessage));
+        }
+
+        return false;
     }
 }

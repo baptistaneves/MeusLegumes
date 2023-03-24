@@ -7,5 +7,6 @@ public interface IClienteAppService : IDisposable
     Task Remover(Guid id, CancellationToken cancellationToken);
     Task<Cliente> ObterPorIdAsync(Guid id);
     Task<IEnumerable<Cliente>> ObterTodosAsync();
+    Task<Cliente> OterClientePorUserIdentityId(string userIdentityId);
 }
 

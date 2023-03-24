@@ -13,4 +13,10 @@ public class CriarUsuarioCommand : Command<IdentityResponse>
         Password = password;
         Perfil = perfil;
     }
+
+    public override bool IsValid()
+    {
+        var validationResult = new CriarUsuarioValidation().Validate(this);
+        return validationResult.IsValid;
+    }
 }

@@ -42,3 +42,7 @@ global using System.Security.Claims;
 global using System.Text;
 global using MeusLegumes.Application.Contexts.Identity.Services;
 global using Microsoft.AspNetCore.Identity;
+global using MeusLegumes.Application.Contexts.Identity.Validations;
+global using MeusLegumes.Application.Contexts.Pedidos.Commands;
+global using MeusLegumes.Domain.Contexts.Pedidos.Repositories;
+global using MeusLegumes.Application.Contexts.Pedidos.Queries.ViewModels;

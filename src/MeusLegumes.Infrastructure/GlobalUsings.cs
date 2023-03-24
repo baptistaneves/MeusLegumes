@@ -19,5 +19,9 @@ global using MeusLegumes.Domain.Contexts.Impostos.Repositories;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using MeusLegumes.Domain.Contexts.Produtos.Repositories;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using MeusLegumes.Domain.Contexts.Pedidos;
+global using MeusLegumes.Domain.Contexts.Pedidos.Entities;
+global using MeusLegumes.Domain.Contexts.Pedidos.Repositories;
+
 
 

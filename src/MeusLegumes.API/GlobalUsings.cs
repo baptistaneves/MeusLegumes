@@ -57,6 +57,14 @@ global using Microsoft.AspNetCore.Identity;
 global using MediatR;
 global using MeusLegumes.Application.Contexts.Identity.Commands;
 global using MeusLegumes.Application.Contexts.Identity.Models;
+global using MeusLegumes.Application.Contexts.Pedidos.Queries;
+global using System.Security.Claims;
+global using MeusLegumes.Application.Contexts.Pedidos.Commands;
+global using MeusLegumes.Application.Contexts.Produtos;
+global using MeusLegumes.Application.Contexts.Pedidos.Queries.ViewModels;
+global using MeusLegumes.Domain.Contexts.Produtos.Entities;
+
+
 
 
 
