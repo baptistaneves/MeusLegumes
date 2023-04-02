@@ -8,6 +8,9 @@ public class ActualizarPacote
     [Required(ErrorMessage = "O Id do pacote informado é inválido")]
     public Guid Id { get; set; }
 
+    [Required(ErrorMessage = "Infome a unidade do produto")]
+    public Guid UnidadeId { get; set; }
+
     [Required(ErrorMessage = "Informe o nome")]
     public string Nome { get; set; }
 
@@ -24,7 +27,7 @@ public class ActualizarPacote
     public decimal PrecoPromocional { get; set; }
     public bool Activo { get; set; }
 
-    public List<CriarPacoteItem> Items { get; set; } = new List<CriarPacoteItem>();
-
+    public List<Guid> ProdutosRelacionados { get; set; } = new List<Guid>();
+    public List<string>? ImagensOpcionaisUrls { get; set; } = new List<string>();
 }
 

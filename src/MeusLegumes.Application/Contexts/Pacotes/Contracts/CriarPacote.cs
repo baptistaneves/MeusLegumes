@@ -4,6 +4,9 @@ namespace MeusLegumes.Application.Contexts.Pacotes.Contracts;
 
 public class CriarPacote
 {
+    [Required(ErrorMessage = "Infome a unidade do produto")]
+    public Guid UnidadeId { get; set; }
+
     [Required(ErrorMessage = "Informe o nome")]
     public string Nome { get; set; }
 
@@ -20,5 +23,7 @@ public class CriarPacote
     public decimal PrecoPromocional { get; set; }
     public bool Activo { get; set; }
 
-    public List<CriarPacoteItem> PacoteItems { get; set; }
+    public List<Guid> ProdutosRelacionados { get; set; } = new List<Guid>();
+    public List<string>? ImagensOpcionaisUrls { get; set; } = new List<string>();
+
 }

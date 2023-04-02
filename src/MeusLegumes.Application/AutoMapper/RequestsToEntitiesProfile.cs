@@ -28,9 +28,5 @@ public class RequestsToEntitiesProfile : Profile
         CreateMap<CriarProduto, Produto>();
         CreateMap<ActualizarProduto, Produto>();
 
-        //Pacote
-        CreateMap<CriarPacote, Pacote>();
-        CreateMap<ActualizarPacote, Pacote>();
-
     }
 }

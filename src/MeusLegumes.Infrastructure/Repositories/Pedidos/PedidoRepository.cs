@@ -1,6 +1,6 @@
 ﻿namespace MeusLegumes.Infrastructure.Repositories.Pedidos;
 
-internal class PedidoRepository : Repository<Pedido>, IPedidoRepository
+public class PedidoRepository : Repository<Pedido>, IPedidoRepository
 {
     public PedidoRepository(ApplicationContext context) : base(context) { }
 

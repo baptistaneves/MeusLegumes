@@ -12,7 +12,7 @@ public class ClienteAppService : BaseService, IClienteAppService
         _clienteRepository = clienteRepository;
     }
 
-    public async Task Adicionar(CriarCliente novoCliente, string identityUserId, CancellationToken cancellationToken)
+    public async Task Adicionar(CriarCliente novoCliente, Guid identityUserId, CancellationToken cancellationToken)
     {
         if (!Validate(new CriarClienteValidation(), novoCliente)) return;
 
@@ -53,7 +53,7 @@ public class ClienteAppService : BaseService, IClienteAppService
         return await _clienteRepository.ObterPorIdAsync(id);
     }
 
-    public async Task<Cliente> OterClientePorUserIdentityId(string userIdentityId)
+    public async Task<Cliente> OterClientePorUserIdentityId(Guid userIdentityId)
     {
         return await _clienteRepository.OterClientePorUserIdentityId(userIdentityId);
     }

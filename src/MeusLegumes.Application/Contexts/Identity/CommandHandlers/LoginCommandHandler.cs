@@ -2,34 +2,31 @@
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand, IdentityResponse>
 {
-    private readonly SignInManager<IdentityUser> _siginManager;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly IUsuarioRepository _usuarioRepository;
     private readonly INotifier _notifier;
-    private readonly JwtService _jwtService;
+    private readonly IJwtService _jwtService;
 
-    public LoginCommandHandler(UserManager<IdentityUser> userManager,
-                               SignInManager<IdentityUser> siginManager,
-                               INotifier notifier,
-                               JwtService jwtService)
+    public LoginCommandHandler(INotifier notifier,
+                               IJwtService jwtService,
+                               IUsuarioRepository usuarioRepository)
     {
-        _userManager = userManager;
-        _siginManager = siginManager;
         _notifier = notifier;
         _jwtService = jwtService;
+        _usuarioRepository = usuarioRepository;
     }
 
     public async Task<IdentityResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         if (!ValidarComando(request)) return null;
 
-        var identityUser = await _userManager.FindByEmailAsync(request.Email);
-        if (identityUser is null)
+        var usuario = await _usuarioRepository.ObterUsuarioPorEmail(request.Email);
+        if (usuario is null)
         {
             _notifier.Handle(new Notification( IdentityErrorMessages.IncorrectUserName));
             return null;
         }
 
-        var siginResult = await _siginManager.CheckPasswordSignInAsync(identityUser, request.Password, true);
+        var siginResult = await _usuarioRepository.CheckPasswordAsync(usuario.Id, request.Password);
 
         if (siginResult.IsLockedOut)
         {
@@ -45,10 +42,10 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, IdentityRespons
 
         return new IdentityResponse
         {
-            Id = identityUser.Id,
-            Email = identityUser.Email,
-            Nome = identityUser.UserName,
-            Token = await _jwtService.GetJwtString(identityUser)
+            Id = usuario.Id,
+            Email = usuario.Email,
+            Nome = usuario.UserName,
+            Token = await _jwtService.GetJwtString(usuario)
         };
     }
 

@@ -11,9 +11,11 @@ internal partial class ProdutoMapping : IEntityTypeConfiguration<Produto>
             .HasColumnType("varchar(255)");
 
         builder.Property(p => p.Descricao)
+           .IsRequired(false)
            .HasColumnType("text");
 
         builder.Property(p => p.Observacao)
+           .IsRequired(false)
            .HasColumnType("text");
 
         builder.Property(p => p.UrlImagemPrincipal)
@@ -25,7 +27,12 @@ internal partial class ProdutoMapping : IEntityTypeConfiguration<Produto>
            .HasColumnType("decimal(18,2)");
 
         builder.Property(p => p.PrecoPromocional)
-           .HasColumnType("decimal(18,2)");
+            .IsRequired(false)
+            .HasColumnType("decimal(18,2)");
+
+        builder.Property(p => p.Tipo)
+           .IsRequired()
+           .HasColumnType("int");
 
         builder.Property(p => p.EmPromocao)
            .HasColumnType("bit");
@@ -48,10 +55,6 @@ internal partial class ProdutoMapping : IEntityTypeConfiguration<Produto>
         builder.Property(p => p.MaisProcurado)
         .HasColumnType("bit");
 
-        builder.HasMany(p => p.PacotesProduto)
-           .WithOne(pr => pr.Produto)
-           .HasForeignKey(pr => pr.ProdutoId)
-           .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.ToTable("Produtos");
     }

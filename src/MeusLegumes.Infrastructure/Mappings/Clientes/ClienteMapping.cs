@@ -9,9 +9,6 @@
             builder.Property(c => c.Nome)
                 .HasColumnType("varchar(200)");
 
-            builder.Property(c => c.UserIdentityId)
-                .HasColumnType("varchar(50)");
-
             builder.Property(c => c.Tipo)
                 .HasColumnType("varchar(50)");
 
@@ -22,22 +19,26 @@
                 .HasColumnType("varchar(20)");
 
             builder.Property(c => c.TelefoneAlternativo)
+                .IsRequired(false)
                 .HasColumnType("varchar(20)");
 
             builder.Property(c => c.Email)
                 .HasColumnType("varchar(255)");
 
             builder.Property(c => c.Rua)
+                .IsRequired(false)
                 .HasColumnType("varchar(255)");
 
             builder.Property(c => c.Casa)
+                .IsRequired(false)
                 .HasColumnType("varchar(20)");
 
             builder.Property(c => c.CodigoPostal)
+                .IsRequired(false)
                 .HasColumnType("varchar(200)");
 
-            builder.Property(c => c.Nome)
-                .HasColumnType("varchar(500)");
+            builder.Property(c => c.PontoDeReferencia)
+                .HasColumnType("varchar(1000)");
 
             builder.ToTable("Clientes");
         }

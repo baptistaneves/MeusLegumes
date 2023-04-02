@@ -8,17 +8,19 @@ public class DbResgistrar : IWebApplicationBuilderRegistrar
 
         builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
-        builder.Services.AddIdentityCore<IdentityUser>(options =>
+        builder.Services.AddIdentityCore<AppUser>(options =>
         {
             options.Password.RequireDigit = false;
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 6;
             options.Password.RequireNonAlphanumeric = false;
+            options.User.AllowedUserNameCharacters = string.Empty; 
         })
-        .AddSignInManager<SignInManager<IdentityUser>>()
-        .AddRoles<IdentityRole>()
-        .AddRoleManager<RoleManager<IdentityRole>>()
+        .AddErrorDescriber<IdentityMensagensPortugues>()
+        .AddSignInManager<SignInManager<AppUser>>()
+        .AddRoles<AppRole>()
+        .AddRoleManager<RoleManager<AppRole>>()
         .AddEntityFrameworkStores<ApplicationContext>();
     }
 }

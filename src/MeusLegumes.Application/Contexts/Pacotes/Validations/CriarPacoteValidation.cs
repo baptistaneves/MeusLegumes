@@ -7,6 +7,9 @@ internal class CriarPacoteValidation : AbstractValidator<CriarPacote>
 		RuleFor(p => p.Nome)
 			.NotEmpty().WithMessage("Informe o nome");
 
+        RuleFor(p => p.UnidadeId)
+         .NotEqual(Guid.Empty).WithMessage("Informe a unidade do produto");
+
         RuleFor(p => p.PrecoUnitario)
             .NotEmpty().WithMessage("Informe o preço unitário do pacote")
             .GreaterThan(20).WithMessage("O valor do preço do pacote deve ser maior que vinte (20)");
@@ -21,6 +24,5 @@ internal class CriarPacoteValidation : AbstractValidator<CriarPacote>
            .GreaterThan(20).WithMessage("O valor do preço promocional deve ser maior que vinte (20)");
         });
 
-        RuleForEach(p => p.PacoteItems).SetValidator(new CriarPacoteProdutoValidation());
     }
 }

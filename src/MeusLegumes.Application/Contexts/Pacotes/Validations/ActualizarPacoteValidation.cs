@@ -7,6 +7,9 @@ internal class ActualizarPacoteValidation : AbstractValidator<ActualizarPacote>
         RuleFor(p => p.Id)
             .NotEqual(Guid.Empty).WithMessage("O Id do pacote não foi informado ou é inválido");
 
+        RuleFor(p => p.UnidadeId)
+         .NotEqual(Guid.Empty).WithMessage("Informe a unidade do produto");
+
         RuleFor(p => p.Nome)
             .NotEmpty().WithMessage("Informe o nome");
 
@@ -22,12 +25,6 @@ internal class ActualizarPacoteValidation : AbstractValidator<ActualizarPacote>
             RuleFor(p => p.PrecoPromocional)
            .NotEmpty().WithMessage("Informe o preço promocional do pacote")
            .GreaterThan(20).WithMessage("O valor do preço promocional deve ser maior que vinte (20)");
-        });
-
-        When(p => p.Items.Any(), () =>
-        {
-            RuleForEach(p => p.Items).SetValidator(new CriarPacoteProdutoValidation());
-
         });
 
     }

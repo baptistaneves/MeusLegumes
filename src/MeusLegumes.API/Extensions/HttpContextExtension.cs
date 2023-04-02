@@ -2,9 +2,9 @@
 
 public static class HttpContextExtension
 {
-    public static string ObterIdentityUserId(this HttpContext context)
+    public static Guid ObterIdentityUserId(this HttpContext context)
     {
-        return GetGuidClaimValue("IdentityUserId", context);
+        return Guid.Parse(GetGuidClaimValue("IdentityUserId", context));
     }
 
     public static string ObterEmail(this HttpContext context)

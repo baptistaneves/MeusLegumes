@@ -2,67 +2,66 @@
 
 public class CriarUsuarioCommandHandler : IRequestHandler<CriarUsuarioCommand, IdentityResponse>
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly IUsuarioRepository _usuarioRepository;
     private readonly INotifier _notifier;
-    private readonly JwtService _jwtService;
+    private readonly IJwtService _jwtService;
 
 
-    public CriarUsuarioCommandHandler(UserManager<IdentityUser> userManager,
-                                      INotifier notifier,
-                                      JwtService jwtService)
+    public CriarUsuarioCommandHandler(INotifier notifier,
+                                      IJwtService jwtService,
+                                      IUsuarioRepository usuarioRepository)
     {
-        _userManager = userManager;
         _notifier = notifier;
         _jwtService = jwtService;
+        _usuarioRepository = usuarioRepository;
     }
 
     public async Task<IdentityResponse> Handle(CriarUsuarioCommand request, CancellationToken cancellationToken)
     {
         if (!ValidarComando(request)) return null;
 
-        var identityUser = await CriarUsuario(request.Email, request.Password, cancellationToken);
-        if (identityUser is null) return null;
+        var usuario = new Usuario(request.Name, request.Email);
 
-        if (!await AdicionarUsuarioAoPerfil(identityUser, request.Perfil)) return null;
+        if (!await CriarUsuario(usuario, request.Password)) return null;
+
+        if (!await AdicionarUsuarioAoPerfil(usuario, request.Perfil)) return null;
 
         return new IdentityResponse
         {
-            Id = identityUser.Id,
-            Email = identityUser.Email,
-            Nome = identityUser.UserName,
-            Token = await _jwtService.GetJwtString(identityUser)
+            Id = usuario.Id,
+            Email = usuario.Email,
+            Nome = usuario.UserName,
+            Token = await _jwtService.GetJwtString(usuario)
         };
     }
 
-    private async Task<IdentityUser> CriarUsuario(string email, string password, CancellationToken cancellationToken)
+    private async Task<bool> CriarUsuario(Usuario usuario, string password)
     {
-        var identity = new IdentityUser { Email = email, UserName = email };
+        var result = await _usuarioRepository.Adicionar(usuario, password);
 
-        var result = await _userManager.CreateAsync(identity, password);
-
-        if (!result.Succeeded)
+        if (!result.Success)
         {
             foreach (var error in result.Errors)
             {
-                _notifier.Handle(new Notification(error.Description));
-                return null;
+                _notifier.Handle(new Notification(error.Mensagem));
+                return false;
             }
 
         }
 
-        return identity;
+        return true;
     }
 
-    private async Task<bool> AdicionarUsuarioAoPerfil(IdentityUser identityUser, string perlfil)
+    private async Task<bool> AdicionarUsuarioAoPerfil(Usuario usuario, string perlfil)
     {
-        var result = await _userManager.AddToRoleAsync(identityUser, perlfil);
+        var result = await _usuarioRepository.AdicionarAoPerfil(usuario.Id, perlfil);
 
-        if (!result.Succeeded)
+        if (!result.Success)
         {
             foreach (var error in result.Errors)
             {
                 
-                _notifier.Handle(new Notification(error.Description));
+                _notifier.Handle(new Notification(error.Mensagem));
                 return false;
             }
         }

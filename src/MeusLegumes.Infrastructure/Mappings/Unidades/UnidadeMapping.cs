@@ -14,11 +14,6 @@ internal class UnidadeMapping : IEntityTypeConfiguration<Unidade>
            .HasForeignKey(p => p.UnidadeId)
            .OnDelete(DeleteBehavior.ClientSetNull);
 
-        builder.HasMany(p => p.PacotesProduto)
-            .WithOne(pr => pr.Unidade)
-            .HasForeignKey(pr => pr.UnidadeId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
-
         builder.ToTable("Unidades");
     }
 }

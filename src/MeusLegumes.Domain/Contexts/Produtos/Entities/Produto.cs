@@ -7,11 +7,12 @@ public class Produto : Entity
     public Guid ImpostoId { get; private set; }
     public Guid MotivoId { get; private set; }
     public string Nome { get; private set; }
+    public TipoProduto Tipo { get; private set; }
     public string Descricao { get; private set; }
     public decimal PrecoUnitario { get; private set; }
     public string UrlImagemPrincipal { get; private set; }
     public bool EmPromocao { get; private set; }
-    public decimal PrecoPromocional { get; private set; }
+    public decimal? PrecoPromocional { get; private set; }
     public bool Destaque { get; private set; }
     public bool NovoLancamento { get; private set; }
     public bool MaisVendido { get; private set; }
@@ -31,9 +32,8 @@ public class Produto : Entity
 
     public IEnumerable<ProdutoImagem> ProdutosImagem { get { return _produtoImagens; } }
     public IEnumerable<ProdutoRelacionado> ProdutosRelacionado { get { return _produtoRelacionados; } }
-    public IEnumerable<PacoteItem> PacotesProduto { get; private set; }
 
-    public Produto(Guid categoriaId, Guid unidadeId, Guid impostoId, Guid motivoId, string nome, 
+    public Produto(Guid categoriaId, Guid unidadeId, Guid impostoId, Guid motivoId, string nome,
         string descricao, decimal precoUnitario, string urlImagemPrincipal, bool emPromocao, 
         decimal precoPromocional, bool destaque, bool novoLancamento, bool maisVendido, 
         bool maisProcurado, bool emEstoque, bool activo, string observacao)
@@ -43,6 +43,7 @@ public class Produto : Entity
         ImpostoId = impostoId;
         MotivoId = motivoId;
         Nome = nome;
+        Tipo = TipoProduto.Produto;
         Descricao = descricao;
         PrecoUnitario = precoUnitario;
         UrlImagemPrincipal = urlImagemPrincipal;
@@ -82,6 +83,30 @@ public class Produto : Entity
         EmEstoque = emEstoque;
         Activo = activo;
         Observacao = observacao;
+    }
+
+    public static Produto NovoPacote(string nome, string descricao, decimal precoUnitario, bool emPromocao, decimal precoPromocional,  string urlImagemPrincipal, bool activo)
+    {
+        return new Produto
+        {
+             Nome = nome,
+             Descricao = descricao,
+             PrecoUnitario = precoUnitario,
+             EmPromocao = emPromocao,
+             PrecoPromocional = precoPromocional,
+             Activo = activo,
+             Tipo = TipoProduto.Pacote
+        };
+    }
+
+    public void ActualizarPacote(string nome, string descricao, decimal precoUnitario, bool emPromocao, decimal precoPromocional, string urlImagemPrincipal, bool activo)
+    {
+        Nome = nome;
+        Descricao = descricao;
+        PrecoUnitario = precoUnitario;
+        EmPromocao = emPromocao;
+        PrecoPromocional = precoPromocional;
+        Activo = activo;
     }
 
     public void Activar() => Activo = true;
@@ -143,4 +168,5 @@ public class Produto : Entity
     {
         _produtoRelacionados.Remove(produtoRelacionado);
     }
+
 }

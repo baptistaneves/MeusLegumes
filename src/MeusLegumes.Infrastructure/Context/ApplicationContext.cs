@@ -1,8 +1,8 @@
-﻿using MeusLegumes.Domain.Contexts.Pedidos.Entities;
+﻿namespace MeusLegumes.Infrastructure.Context;
 
-namespace MeusLegumes.Infrastructure.Context;
-
-public class ApplicationContext : IdentityDbContext, IUnitOfWork
+public class ApplicationContext : IdentityDbContext<AppUser, AppRole, Guid,
+                                IdentityUserClaim<Guid>, AppUserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>,
+                                IdentityUserToken<Guid>>, IUnitOfWork
 {
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Unidade> Unidades { get; set; }
@@ -14,22 +14,18 @@ public class ApplicationContext : IdentityDbContext, IUnitOfWork
     public DbSet<Produto> Produtos { get; set; }
     public DbSet<ProdutoRelacionado> ProdutoRelacionados { get; set; }
     public DbSet<ProdutoImagem> ProdutoImagens { get; set; }
-    public DbSet<Pacote> Pacotes { get; set; }
-    public DbSet<PacoteItem> PacoteItens { get; set; }
     public DbSet<Pedido> Pedidos { get; set; }
-    public DbSet<PedidoItemPacote> PedidoItensPacote { get; set; }
     public DbSet<PedidoItem> PedidoItensProduto { get; set; }
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
 
-        //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
         modelBuilder.HasSequence<int>("CODIGO_PEDIDO").StartsAt(100).IncrementsBy(1);
-
-        base.OnModelCreating(modelBuilder);
     }
 
     public async Task<bool> SaveChangesAsync(CancellationToken cancellationToken)

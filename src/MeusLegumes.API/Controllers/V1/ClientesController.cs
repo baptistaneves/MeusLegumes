@@ -34,7 +34,7 @@ public class ClientesController : BaseController
     [ValidateModel]
     public async Task<ActionResult> NovoCliente([FromBody] CriarCliente cliente, CancellationToken cancellationToken)
     {
-        var command = new CriarUsuarioCommand(cliente.Nome, cliente.Email, cliente.Senha, PerfilUsuario.CLIENTE);
+        var command = new CriarUsuarioCommand(cliente.Nome, cliente.Email, cliente.Senha, "Cliente");
         var identity = await _mediator.Send(command, cancellationToken);
 
         if (identity is null) return Response();

@@ -47,17 +47,10 @@ public class PacotesController : BaseController
     [ValidateModel]
     public async Task<ActionResult> ActualizarPacote([FromBody] ActualizarPacote pacoteActualizado, CancellationToken cancellationToken)
     {
-        var pacote = await _pacoteAppService.ObterPorIdAsync(pacoteActualizado.Id);
-        if (pacote is null)
-        {
-            Notify(PacoteErrorMessages.PacoteNaoEncotrado);
-            return Response();
-        }
+        var pacote =  await _pacoteAppService.Actualizar(pacoteActualizado, cancellationToken);
 
-        await _pacoteAppService.Actualizar(pacoteActualizado, cancellationToken);
-
-        if (OperationIsValid() && pacoteActualizado.ImagemUrl != pacote.ImagemUrl) 
-            _imageUploadService.DeleteImage(pacote.ImagemUrl, _folderPath);
+        if (OperationIsValid() && pacoteActualizado.ImagemUrl != pacote.UrlImagemPrincipal) 
+            _imageUploadService.DeleteImage(pacote.UrlImagemPrincipal, _folderPath);
 
         return Response(pacoteActualizado);
     }
@@ -71,7 +64,7 @@ public class PacotesController : BaseController
 
         await _pacoteAppService.Remover(id, cancellationToken);
 
-        if(OperationIsValid()) _imageUploadService.DeleteImage(pacote.ImagemUrl, _folderPath);
+        if(OperationIsValid()) _imageUploadService.DeleteImage(pacote.UrlImagemPrincipal, _folderPath);
 
         return Response();
     }

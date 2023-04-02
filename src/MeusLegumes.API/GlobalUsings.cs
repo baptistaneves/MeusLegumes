@@ -42,15 +42,10 @@ global using MeusLegumes.Application.Contexts.Produtos.Contracts;
 global using MeusLegumes.Application.Contexts.Produtos.Services;
 global using MeusLegumes.Application.Contexts.Pacotes.Contracts;
 global using MeusLegumes.Application.Contexts.Pacotes.Services;
-global using MeusLegumes.Domain.Contexts.Pacotes.Repositories;
 global using MeusLegumes.Domain.Contexts.Produtos.Repositories;
-global using MeusLegumes.Infrastructure.Repositories.Pacotes;
 global using MeusLegumes.Infrastructure.Repositories.Produtos;
 global using MeusLegumes.API.Helpers.ImageUpload;
-global using MeusLegumes.Application.Contexts.Pacotes;
-global using MeusLegumes.Application.Contexts.Identity.Services;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
-global using MeusLegumes.Application.Contexts.Identity.Options;
 global using Microsoft.IdentityModel.Tokens;
 global using System.Text;
 global using Microsoft.AspNetCore.Identity;
@@ -63,6 +58,17 @@ global using MeusLegumes.Application.Contexts.Pedidos.Commands;
 global using MeusLegumes.Application.Contexts.Produtos;
 global using MeusLegumes.Application.Contexts.Pedidos.Queries.ViewModels;
 global using MeusLegumes.Domain.Contexts.Produtos.Entities;
+global using MeusLegumes.Infrastructure.Identity.Models;
+global using MeusLegumes.Domain.Contexts.Usuarios.Services;
+global using MeusLegumes.Infrastructure.Identity.Services;
+global using MeusLegumes.Infrastructure.Identity.Options;
+global using MeusLegumes.Domain.Contexts.Usuarios.Repositories;
+global using MeusLegumes.Infrastructure.Repositories.Usuarios;
+global using MeusLegumes.Application.Contexts.Identity.Queries;
+global using MeusLegumes.Domain.Contexts.Pedidos.Repositories;
+global using MeusLegumes.Infrastructure.Repositories.Pedidos;
+
+
 
 
 

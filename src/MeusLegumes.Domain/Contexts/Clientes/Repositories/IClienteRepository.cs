@@ -2,5 +2,5 @@
 
 public interface IClienteRepository : IRepository<Cliente> 
 {
-    Task<Cliente> OterClientePorUserIdentityId(string userIdentityId);
+    Task<Cliente> OterClientePorUserIdentityId(Guid userIdentityId);
 }

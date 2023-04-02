@@ -5,9 +5,26 @@
 public class UsuariosController : BaseController
 {
     private readonly IMediator _mediator;
-    public UsuariosController(INotifier notifier, IMediator mediator) : base(notifier)
+    private readonly IUsuarioQueries _usuarioQueries;
+    public UsuariosController(INotifier notifier, 
+                              IMediator mediator, 
+                              IUsuarioQueries usuarioQueries) : base(notifier)
     {
         _mediator = mediator;
+        _usuarioQueries = usuarioQueries;
+    }
+
+    [HttpGet(ApiRoutes.Usuario.ObterUsuarios)]
+    public async Task<ActionResult> ObterUsuarios()
+    {
+        return Ok(await _usuarioQueries.ObterUsuarios());
+    }
+
+    [HttpGet(ApiRoutes.Usuario.ObterUsuarioPorId)]
+    [ValidateGuid("id")]
+    public async Task<ActionResult> ObterUsuarioPorId(Guid id)
+    {
+        return Ok(await _usuarioQueries.ObterUsuarioPorId(id));
     }
 
     [HttpPost(ApiRoutes.Usuario.CriarUsuario)]

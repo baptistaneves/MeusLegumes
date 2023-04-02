@@ -17,17 +17,7 @@ internal class PedidoMapping : IEntityTypeConfiguration<Pedido>
            .IsRequired();
 
         builder.Property(p => p.Codigo)
-           .HasDefaultValue("NEXT VALUE FOR CODIGO_PEDIDO");
-
-        builder.HasMany(p => p.PedidoItensProduto)
-            .WithOne(pi => pi.Pedido)
-            .HasForeignKey(pi => pi.PedidoId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasMany(p => p.PedidoItensPacote)
-            .WithOne(pi => pi.Pedido)
-            .HasForeignKey(pi => pi.PedidoId)
-            .OnDelete(DeleteBehavior.Cascade);
+           .HasDefaultValueSql("NEXT VALUE FOR CODIGO_PEDIDO");
 
         builder.ToTable("Pedidos");
     }

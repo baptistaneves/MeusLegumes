@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MeusLegumes.Domain\MeusLegumes.Domain.csproj" />
+    <ProjectReference Include="..\MeusLegumes.Infrastructure\MeusLegumes.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

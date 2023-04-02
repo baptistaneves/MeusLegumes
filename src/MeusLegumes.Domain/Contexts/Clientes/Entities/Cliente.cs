@@ -3,7 +3,7 @@
 public class Cliente : Entity
 {
     public Guid MunicipioId { get; private set; }
-    public string UserIdentityId { get; private set; }
+    public Guid UserIdentityId { get; private set; }
     public string Nome { get; private set; }
     public string Tipo { get; private set; }
     public string NumeroContribuinte { get; private set; }
@@ -15,7 +15,7 @@ public class Cliente : Entity
     public string CodigoPostal { get; private set; }
     public string PontoDeReferencia { get; private set; }
 
-    public Cliente(string nome, string userIdentityId,  string tipo, string numeroContribuinte, string telefonePrincipal, 
+    public Cliente(string nome, Guid userIdentityId,  string tipo, string numeroContribuinte, string telefonePrincipal, 
         string telefoneAlternativo, string email, Guid municipioId, string rua, string casa, string codigoPostal, string pontoDeReferencia)
     {
         Nome = nome;

@@ -3,23 +3,18 @@
 public class ProdutoAppService : BaseService, IProdutoAppService
 {
     private readonly IProdutoRepository _produtoRepository;
-    private readonly IMapper _mapper;
-    public ProdutoAppService(INotifier notifier, IProdutoRepository produtoRepository, IMapper mapper) : base(notifier)
+    public ProdutoAppService(INotifier notifier, IProdutoRepository produtoRepository) : base(notifier)
     {
         _produtoRepository = produtoRepository;
-        _mapper = mapper;
     }
+
     public async Task Adicionar(CriarProduto produto, CancellationToken cancellationToken)
     {
         if (!Validate(new CriarProdutoValidation(), produto)) return;
 
-        if (_produtoRepository.BuscarAsync(c => c.Nome == produto.Nome).Result.Any())
-        {
-            Notify(ProdutoErrorMessages.ProdutoJaExiste);
-            return;
-        }
+        if (ProdutoJaExiste(produto.Nome)) return;
 
-        var novoProduto = _mapper.Map<Produto>(produto);
+        var novoProduto = new  Produto(produto.CategoriaId, produto.UnidadeId, produto.ImpostoId, produto.MotivoId, produto.Nome, produto.Descricao, produto.PrecoUnitario, produto.UrlImagemPrincipal, produto.EmPromocao, produto.PrecoPromocional, produto.Destaque, produto.NovoLancamento, produto.MaisVendido, produto.MaisProcurado, produto.EmEstoque, produto.Activo, produto.Observacao);
 
         if(produto.ProdutosRelacionados.Any())
         {
@@ -46,21 +41,13 @@ public class ProdutoAppService : BaseService, IProdutoAppService
     {
         if (!Validate(new ActualizarProdutoValidation(), actProduto)) return null;
 
-        var produto = await _produtoRepository.ObterPorIdAsync(actProduto.Id);
+        var produto = await ObterProduto(actProduto.Id);
 
-        if (produto is null)
-        {
-            Notify(ProdutoErrorMessages.ProdutoNaoEncotrado);
-            return null;
-        }
+        if (produto is null) return null;
 
         var produtoAntigo = produto;
 
-        if (_produtoRepository.BuscarAsync(c => c.Nome == actProduto.Nome && c.Id != actProduto.Id).Result.Any())
-        {
-            Notify(ProdutoErrorMessages.ProdutoJaExiste);
-            return null;
-        }
+        if (ProdutoJaExiste(actProduto.Nome, actProduto.Id)) return null;
 
         produto.ActualizarProduto(actProduto.CategoriaId, actProduto.UnidadeId, actProduto.ImpostoId, actProduto.MotivoId, actProduto.Nome, actProduto.Descricao, actProduto.PrecoUnitario, actProduto.UrlImagemPrincipal, actProduto.EmPromocao, actProduto.PrecoPromocional, actProduto.Destaque, actProduto.NovoLancamento, actProduto.MaisVendido, actProduto.MaisProcurado, actProduto.EmEstoque, actProduto.Activo, actProduto.Observacao);
 
@@ -71,7 +58,7 @@ public class ProdutoAppService : BaseService, IProdutoAppService
                 if(!await _produtoRepository.ExisteRelacaoComProduto(produto.Id, produtoRelacionadoId)) 
                 {
                     var produtoRelacionado = new ProdutoRelacionado(produtoRelacionadoId);
-                    produtoRelacionado.AssociarAoProduto(actProduto.Id);
+                    produtoRelacionado.AssociarAoProduto(produto.Id);
                     _produtoRepository.AdicionarProdutoRelacionado(produtoRelacionado);
                 }
             }
@@ -95,19 +82,13 @@ public class ProdutoAppService : BaseService, IProdutoAppService
 
     public async Task Remover(Guid id, CancellationToken cancellationToken)
     {
-        if (_produtoRepository.ObterProdutoComPacotes(id).Result.PacotesProduto.Any())
-        {
-            Notify(ProdutoErrorMessages.ProdutoNaoPodeSerRemovido);
-            return;
-        }
-
         _produtoRepository.Remover(id);
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<Produto> ObterPorIdAsync(Guid id)
     {
-        return await _produtoRepository.ObterPorIdAsync(id);
+        return await _produtoRepository.ObterProdutoPorId(id);
     }
 
     public async Task<Produto> ObterProdutoComImagensProdutos(Guid id)
@@ -117,7 +98,42 @@ public class ProdutoAppService : BaseService, IProdutoAppService
 
     public async Task<IEnumerable<Produto>> ObterTodosAsync()
     {
-        return await _produtoRepository.ObterTodosAsync();
+        return await _produtoRepository.ObterTodosProdutos();
+    }
+
+    private bool ProdutoJaExiste(string nome)
+    {
+        if (_produtoRepository.BuscarAsync(c => c.Nome == nome).Result.Any())
+        {
+            Notify(ProdutoErrorMessages.ProdutoJaExiste);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool ProdutoJaExiste(string nome, Guid id)
+    {
+        if (_produtoRepository.BuscarAsync(c => c.Nome == nome && c.Id != id).Result.Any())
+        {
+            Notify(ProdutoErrorMessages.ProdutoJaExiste);
+            return true;
+        }
+
+        return false;
+    }
+    
+    private async Task<Produto> ObterProduto(Guid id)
+    {
+        var produto = await _produtoRepository.ObterPorIdAsync(id);
+
+        if (produto is null)
+        {
+            Notify(ProdutoErrorMessages.ProdutoNaoEncotrado);
+            return null;
+        }
+
+        return produto;
     }
 
     public void Dispose()

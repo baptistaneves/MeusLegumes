@@ -89,6 +89,8 @@ public class ApiRoutes
     {
         public const string CriarUsuario = "criar-usuario";
         public const string Login = "login";
+        public const string ObterUsuarios = "obter-usuarios";
+        public const string ObterUsuarioPorId = "obter-usuario-por-id/{id}";
     }
 
     public class Pedido

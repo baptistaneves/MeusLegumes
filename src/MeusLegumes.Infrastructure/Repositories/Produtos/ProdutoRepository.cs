@@ -1,14 +1,11 @@
-﻿namespace MeusLegumes.Infrastructure.Repositories.Produtos;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MeusLegumes.Infrastructure.Repositories.Produtos;
 
 public class ProdutoRepository : Repository<Produto>, IProdutoRepository
 {
     public ProdutoRepository(ApplicationContext context) : base(context)
     {
-    }
-
-    public async Task<Produto> ObterProdutoComPacotes(Guid id)
-    {
-        return await _context.Produtos.AsNoTracking().Include(p => p.PacotesProduto).FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<Produto> ObterProdutoComImagensProdutos(Guid id)
@@ -29,5 +26,27 @@ public class ProdutoRepository : Repository<Produto>, IProdutoRepository
     public void AdicionarProdutoRelacionado(ProdutoRelacionado produtoRelacionado)
     {
         _context.ProdutoRelacionados.Add(produtoRelacionado);
+    }
+
+    public async Task<Produto> ObterPacotePorId(Guid id)
+    {
+        return await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id && p.Tipo == TipoProduto.Pacote);
+    }
+
+    public async Task<IEnumerable<Produto>> ObterTodosPacotes()
+    {
+        return await _context.Produtos.AsNoTracking().Where(p => p.Tipo == TipoProduto.Pacote).ToListAsync();
+    }
+
+    public async Task<Produto> ObterProdutoPorId(Guid id)
+    {
+        return await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id && p.Tipo == TipoProduto.Produto);
+
+    }
+
+    public async Task<IEnumerable<Produto>> ObterTodosProdutos()
+    {
+        return await _context.Produtos.AsNoTracking().Where(p => p.Tipo == TipoProduto.Produto).ToListAsync();
+
     }
 }
