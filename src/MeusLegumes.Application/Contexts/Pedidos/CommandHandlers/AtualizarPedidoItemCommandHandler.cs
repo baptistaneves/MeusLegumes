@@ -22,7 +22,7 @@ public class AtualizarPedidoItemCommandHandler : IRequestHandler<AtualizarPedido
         }
 
         var pedidoItem = await _pedidoRepository.ObterItemPorPedido(pedido.Id, command.ProdutoId);
-        if(!pedido.PedidoItemExistente(pedidoItem))
+        if(pedidoItem is null)
         {
             _notifier.Handle(new Notification(PedidoErrorMessages.PedidoItemNaoEncotrado));
             return false;

@@ -245,7 +245,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("CategoriaId")
+                    b.Property<Guid?>("CategoriaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descricao")
@@ -260,7 +260,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<bool>("EmPromocao")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("ImpostoId")
+                    b.Property<Guid?>("ImpostoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("MaisProcurado")
@@ -269,7 +269,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<bool>("MaisVendido")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("MotivoId")
+                    b.Property<Guid?>("MotivoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
@@ -291,7 +291,7 @@ namespace MeusLegumes.Infrastructure.Migrations
                     b.Property<int>("Tipo")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UnidadeId")
+                    b.Property<Guid?>("UnidadeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UrlImagemPrincipal")
@@ -597,18 +597,15 @@ namespace MeusLegumes.Infrastructure.Migrations
                 {
                     b.HasOne("MeusLegumes.Domain.Contexts.Categorias.Entities.Categoria", "Categoria")
                         .WithMany("Produtos")
-                        .HasForeignKey("CategoriaId")
-                        .IsRequired();
+                        .HasForeignKey("CategoriaId");
 
                     b.HasOne("MeusLegumes.Domain.Contexts.Impostos.Entities.Imposto", "Imposto")
                         .WithMany("Produtos")
-                        .HasForeignKey("ImpostoId")
-                        .IsRequired();
+                        .HasForeignKey("ImpostoId");
 
                     b.HasOne("MeusLegumes.Domain.Contexts.Impostos.Entities.MotivoIsencaoIva", "MotivoIsencaoIva")
                         .WithMany("Produtos")
-                        .HasForeignKey("MotivoId")
-                        .IsRequired();
+                        .HasForeignKey("MotivoId");
 
                     b.HasOne("MeusLegumes.Domain.Contexts.Unidades.Entities.Unidade", "Unidade")
                         .WithMany("Produtos")

@@ -2,10 +2,10 @@
 
 public class Produto : Entity
 {
-    public Guid CategoriaId { get; private set; }
-    public Guid UnidadeId { get; private set; }
-    public Guid ImpostoId { get; private set; }
-    public Guid MotivoId { get; private set; }
+    public Guid? CategoriaId { get; private set; }
+    public Guid? UnidadeId { get; private set; }
+    public Guid? ImpostoId { get; private set; }
+    public Guid? MotivoId { get; private set; }
     public string Nome { get; private set; }
     public TipoProduto Tipo { get; private set; }
     public string Descricao { get; private set; }
@@ -85,11 +85,13 @@ public class Produto : Entity
         Observacao = observacao;
     }
 
-    public static Produto NovoPacote(string nome, string descricao, decimal precoUnitario, bool emPromocao, decimal precoPromocional,  string urlImagemPrincipal, bool activo)
+    public static Produto NovoPacote(string nome, string descricao, decimal precoUnitario, bool emPromocao, decimal precoPromocional,  string urlImagemPrincipal, bool activo, Guid unidadeId)
     {
         return new Produto
         {
              Nome = nome,
+             UnidadeId = unidadeId,
+             UrlImagemPrincipal = urlImagemPrincipal,
              Descricao = descricao,
              PrecoUnitario = precoUnitario,
              EmPromocao = emPromocao,
@@ -99,9 +101,11 @@ public class Produto : Entity
         };
     }
 
-    public void ActualizarPacote(string nome, string descricao, decimal precoUnitario, bool emPromocao, decimal precoPromocional, string urlImagemPrincipal, bool activo)
+    public void ActualizarPacote(string nome, string descricao, decimal precoUnitario, bool emPromocao, decimal precoPromocional, string urlImagemPrincipal, bool activo, Guid unidadeId)
     {
         Nome = nome;
+        UrlImagemPrincipal = urlImagemPrincipal;
+        UnidadeId = unidadeId;
         Descricao = descricao;
         PrecoUnitario = precoUnitario;
         EmPromocao = emPromocao;

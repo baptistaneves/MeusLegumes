@@ -8,7 +8,7 @@ public class Pedido : Entity
     public DateTime DataCadastro { get; private set; }
     public PedidoStatus PedidoStatus { get; private set; }
 
-    private readonly List<PedidoItem> _peditoItens;
+    private readonly List<PedidoItem> _peditoItens = new List<PedidoItem>();
     public IReadOnlyCollection<PedidoItem> PedidoItens => _peditoItens;
 
 

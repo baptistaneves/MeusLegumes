@@ -17,7 +17,7 @@ public class PacoteAppService : BaseService, IPacoteAppService
 
         if (PacoteJaExiste(pacote.Nome)) return;
 
-        var novoPacote = Produto.NovoPacote(pacote.Nome, pacote.Descricao, pacote.PrecoUnitario, pacote.EmPromocao, pacote.PrecoPromocional, pacote.ImagemUrl, pacote.Activo);
+        var novoPacote = Produto.NovoPacote(pacote.Nome, pacote.Descricao, pacote.PrecoUnitario, pacote.EmPromocao, pacote.PrecoPromocional, pacote.ImagemUrl, pacote.Activo, pacote.UnidadeId);
 
         if (pacote.ProdutosRelacionados.Any())
         {
@@ -51,7 +51,7 @@ public class PacoteAppService : BaseService, IPacoteAppService
 
         if (PacoteJaExiste(pacoteAct.Nome, pacoteAct.Id)) return null;
 
-        pacote.ActualizarPacote(pacoteAct.Nome, pacoteAct.Descricao, pacoteAct.PrecoUnitario, pacoteAct.EmPromocao, pacoteAct.PrecoPromocional, pacoteAct.ImagemUrl, pacoteAct.Activo); ;
+        pacote.ActualizarPacote(pacoteAct.Nome, pacoteAct.Descricao, pacoteAct.PrecoUnitario, pacoteAct.EmPromocao, pacoteAct.PrecoPromocional, pacoteAct.ImagemUrl, pacoteAct.Activo, pacoteAct.UnidadeId); ;
 
         if (pacoteAct.ProdutosRelacionados.Any())
         {

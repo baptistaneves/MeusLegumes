@@ -56,6 +56,18 @@ internal partial class ProdutoMapping : IEntityTypeConfiguration<Produto>
         .HasColumnType("bit");
 
 
+        builder.Property(p => p.CategoriaId)
+            .IsRequired(false);
+
+        builder.Property(p => p.UnidadeId)
+            .IsRequired(false);
+
+        builder.Property(p => p.MotivoId)
+            .IsRequired(false);
+
+        builder.Property(p => p.ImpostoId)
+            .IsRequired(false);
+
         builder.ToTable("Produtos");
     }
 }

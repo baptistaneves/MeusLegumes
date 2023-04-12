@@ -21,8 +21,7 @@ public class PedidoRepository : Repository<Pedido>, IPedidoRepository
 
     public async Task<PedidoItem> ObterItemPorPedido(Guid pedidoId, Guid produtoId)
     {
-        return await _context.PedidoItensProduto.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.PedidoId == pedidoId && p.ProdutoId == produtoId);
+        return await _context.PedidoItensProduto.FirstOrDefaultAsync(p => p.PedidoId == pedidoId && p.ProdutoId == produtoId);
     }
 
     public async Task<IEnumerable<Pedido>> ObterListaPorClienteId(Guid clienteId)

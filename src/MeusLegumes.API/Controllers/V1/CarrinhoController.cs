@@ -40,7 +40,7 @@ public class CarrinhoController : BaseController
 
         var cliente = await _clienteAppService.OterClientePorUserIdentityId(HttpContext.ObterIdentityUserId());
 
-        var command = new AdicionarPedidoItemCommand(cliente.Id, produto.Id, produto.Nome, quantidade, produto.PrecoUnitario);
+        var command = new AdicionarPedidoItemCommand(cliente.Id, produtoId, produto.Nome, quantidade, produto.PrecoUnitario);
         await _mediator.Send(command, cancellationToken);
 
         return Response();
@@ -70,7 +70,7 @@ public class CarrinhoController : BaseController
 
         var cliente = await _clienteAppService.OterClientePorUserIdentityId(HttpContext.ObterIdentityUserId());
 
-        var command = new AtualizarPedidoItemCommand(cliente.Id, produto.Id, quantidade);
+        var command = new AtualizarPedidoItemCommand(cliente.Id, produtoId, quantidade);
         await _mediator.Send(command, cancellationToken);
 
         return Response();

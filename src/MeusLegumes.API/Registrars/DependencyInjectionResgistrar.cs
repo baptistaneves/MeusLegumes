@@ -55,5 +55,6 @@ public class DependencyInjectionResgistrar : IWebApplicationBuilderRegistrar
 
         //Pedidos
         builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+        builder.Services.AddScoped<IPedidoQueries, PedidoQueries>();
     }
 }

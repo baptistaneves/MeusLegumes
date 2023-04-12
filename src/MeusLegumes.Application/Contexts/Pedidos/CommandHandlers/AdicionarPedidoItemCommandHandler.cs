@@ -18,7 +18,7 @@ public class AdicionarPedidoItemCommandHandler : IRequestHandler<AdicionarPedido
         if (!ValidarComando(command)) return false;
 
         var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(command.ClienteId);
-        var pedidoItem = new PedidoItem(command.ClienteId, command.Nome, command.Quantidade, command.ValorUnitario);
+        var pedidoItem = new PedidoItem(command.ProdutoId, command.Nome, command.Quantidade, command.ValorUnitario);
 
         if(pedido is null)
         {
