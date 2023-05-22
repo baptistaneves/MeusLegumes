@@ -1,4 +1,6 @@
-﻿namespace MeusLegumes.Application.Contexts.Produtos.Services;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+
+namespace MeusLegumes.Application.Contexts.Produtos.Services;
 
 public class ProdutoAppService : BaseService, IProdutoAppService
 {
@@ -37,17 +39,13 @@ public class ProdutoAppService : BaseService, IProdutoAppService
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Produto> Actualizar(ActualizarProduto actProduto, CancellationToken cancellationToken)
+    public async Task Actualizar(ActualizarProduto actProduto, CancellationToken cancellationToken)
     {
-        if (!Validate(new ActualizarProdutoValidation(), actProduto)) return null;
+        if (!Validate(new ActualizarProdutoValidation(), actProduto)) return;
 
-        var produto = await ObterProduto(actProduto.Id);
+        var produto = await _produtoRepository.ObterProdutoPorId(actProduto.Id);
 
-        if (produto is null) return null;
-
-        var produtoAntigo = produto;
-
-        if (ProdutoJaExiste(actProduto.Nome, actProduto.Id)) return null;
+        if (ProdutoJaExiste(actProduto.Nome, actProduto.Id)) return;
 
         produto.ActualizarProduto(actProduto.CategoriaId, actProduto.UnidadeId, actProduto.ImpostoId, actProduto.MotivoId, actProduto.Nome, actProduto.Descricao, actProduto.PrecoUnitario, actProduto.UrlImagemPrincipal, actProduto.EmPromocao, actProduto.PrecoPromocional, actProduto.Destaque, actProduto.NovoLancamento, actProduto.MaisVendido, actProduto.MaisProcurado, actProduto.EmEstoque, actProduto.Activo, actProduto.Observacao);
 
@@ -76,8 +74,6 @@ public class ProdutoAppService : BaseService, IProdutoAppService
 
         _produtoRepository.Actualizar(produto);
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
-
-        return produtoAntigo;
     }
 
     public async Task Remover(Guid id, CancellationToken cancellationToken)
@@ -96,7 +92,7 @@ public class ProdutoAppService : BaseService, IProdutoAppService
         return await _produtoRepository.ObterProdutoComImagensProdutos(id);
     }
 
-    public async Task<IEnumerable<Produto>> ObterTodosAsync()
+    public async Task<IEnumerable<ProdutoDto>> ObterTodosAsync()
     {
         return await _produtoRepository.ObterTodosProdutos();
     }
@@ -121,19 +117,6 @@ public class ProdutoAppService : BaseService, IProdutoAppService
         }
 
         return false;
-    }
-    
-    private async Task<Produto> ObterProduto(Guid id)
-    {
-        var produto = await _produtoRepository.ObterPorIdAsync(id);
-
-        if (produto is null)
-        {
-            Notify(ProdutoErrorMessages.ProdutoNaoEncotrado);
-            return null;
-        }
-
-        return produto;
     }
 
     public void Dispose()

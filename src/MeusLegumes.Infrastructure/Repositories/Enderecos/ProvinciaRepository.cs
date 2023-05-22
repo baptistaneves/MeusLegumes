@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using MeusLegumes.Domain.Contexts.Enderecos.DTOs;
+using System.Linq;
 
 namespace MeusLegumes.Infrastructure.Repositories.Enderecos;
 
@@ -26,9 +27,18 @@ public class ProvinciaRepository : Repository<Provincia>, IProvinciaRepository
         return await _context.Municipios.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
     }
 
-    public async Task<IEnumerable<Municipio>> ObterMunicipiosAsync()
+    public async Task<IEnumerable<MunicipioDto>> ObterMunicipiosAsync()
     {
-        return await _context.Municipios.AsNoTracking().ToListAsync();
+        return await _context.Municipios.AsNoTracking()
+                                        .Include(m => m.Provincia)
+                                        .Select(municipio => new MunicipioDto
+                                        {
+                                            Id = municipio.Id,
+                                            ProvinciaId = municipio.ProvinciaId,
+                                            Nome = municipio.Nome,
+                                            Provincia = municipio.Provincia.Nome
+                                        })
+                                        .ToListAsync();
     }
 
     public async Task<Provincia> VerificarSeProvinciaPossuiMunicipiosPorId(Guid id)

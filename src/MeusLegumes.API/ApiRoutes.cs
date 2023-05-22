@@ -32,7 +32,7 @@ public class ApiRoutes
 
         public const string ObterMunicipios = "obter-municipios";
         public const string ObterMunicipioPorId = "obter-municipio-por-id/{id}";
-        public const string NovoMunicipio = "nova-municipio";
+        public const string NovoMunicipio = "novo-municipio";
         public const string ActualizarMunicipio = "actualizar-municipio";
         public const string RemoverMunicipio = "remover-municipio/{id}";
     }
@@ -88,6 +88,9 @@ public class ApiRoutes
     public static class Usuario
     {
         public const string CriarUsuario = "criar-usuario";
+        public const string ActualizarUsuario = "actualizar-usuario";
+        public const string RemoverUsuario = "remover-usuario";
+        public const string AlterarSenha = "alterar-senha";
         public const string Login = "login";
         public const string ObterUsuarios = "obter-usuarios";
         public const string ObterUsuarioPorId = "obter-usuario-por-id/{id}";

@@ -1,4 +1,6 @@
-﻿namespace MeusLegumes.Application.Contexts.Pacotes.Services;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+
+namespace MeusLegumes.Application.Contexts.Pacotes.Services;
 
 public class PacoteAppService : BaseService, IPacoteAppService
 {
@@ -17,7 +19,7 @@ public class PacoteAppService : BaseService, IPacoteAppService
 
         if (PacoteJaExiste(pacote.Nome)) return;
 
-        var novoPacote = Produto.NovoPacote(pacote.Nome, pacote.Descricao, pacote.PrecoUnitario, pacote.EmPromocao, pacote.PrecoPromocional, pacote.ImagemUrl, pacote.Activo, pacote.UnidadeId);
+        var novoPacote = Produto.NovoPacote(pacote.Nome, pacote.Descricao, pacote.PrecoUnitario, pacote.EmPromocao, pacote.PrecoPromocional, pacote.UrlImagemPrincipal, pacote.Activo, pacote.UnidadeId);
 
         if (pacote.ProdutosRelacionados.Any())
         {
@@ -39,19 +41,15 @@ public class PacoteAppService : BaseService, IPacoteAppService
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Produto> Actualizar(ActualizarPacote pacoteAct, CancellationToken cancellationToken)
+    public async Task Actualizar(ActualizarPacote pacoteAct, CancellationToken cancellationToken)
     {
-        if (!Validate(new ActualizarPacoteValidation(), pacoteAct)) return null;
+        if (!Validate(new ActualizarPacoteValidation(), pacoteAct)) return;
 
-        var pacote = await ObterPacote(pacoteAct.Id);
+        var pacote = await _produtoRepository.ObterPacotePorId(pacoteAct.Id);
 
-        if (pacote is null) return null;
+        if (PacoteJaExiste(pacoteAct.Nome, pacoteAct.Id)) return;
 
-        var pacoteAntigo = pacote;
-
-        if (PacoteJaExiste(pacoteAct.Nome, pacoteAct.Id)) return null;
-
-        pacote.ActualizarPacote(pacoteAct.Nome, pacoteAct.Descricao, pacoteAct.PrecoUnitario, pacoteAct.EmPromocao, pacoteAct.PrecoPromocional, pacoteAct.ImagemUrl, pacoteAct.Activo, pacoteAct.UnidadeId); ;
+        pacote.ActualizarPacote(pacoteAct.Nome, pacoteAct.Descricao, pacoteAct.PrecoUnitario, pacoteAct.EmPromocao, pacoteAct.PrecoPromocional, pacoteAct.UrlImagemPrincipal, pacoteAct.Activo, pacoteAct.UnidadeId); ;
 
         if (pacoteAct.ProdutosRelacionados.Any())
         {
@@ -78,8 +76,6 @@ public class PacoteAppService : BaseService, IPacoteAppService
 
         _produtoRepository.Actualizar(pacote);
         await _produtoRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
-
-        return pacoteAntigo;
     }
 
     public async Task Remover(Guid id, CancellationToken cancellationToken)
@@ -93,7 +89,7 @@ public class PacoteAppService : BaseService, IPacoteAppService
         return await _produtoRepository.ObterPacotePorId(id);
     }
 
-    public async Task<IEnumerable<Produto>> ObterTodosAsync()
+    public async Task<IEnumerable<PacoteDto>> ObterTodosAsync()
     {
         return await _produtoRepository.ObterTodosPacotes();
     }
@@ -118,19 +114,6 @@ public class PacoteAppService : BaseService, IPacoteAppService
         }
 
         return false;
-    }
-
-    private async Task<Produto> ObterPacote(Guid id)
-    {
-        var pacote = await _produtoRepository.ObterPacotePorId(id);
-
-        if (pacote is null)
-        {
-            Notify(PacoteErrorMessages.PacoteNaoEncotrado);
-            return null;
-        }
-
-        return pacote;
     }
 
     public void Dispose()

@@ -1,4 +1,6 @@
-﻿namespace MeusLegumes.Application.Contexts.Enderecos.Services;
+﻿using MeusLegumes.Domain.Contexts.Enderecos.DTOs;
+
+namespace MeusLegumes.Application.Contexts.Enderecos.Services;
 
 public interface IProvinciaAppService : IDisposable
 {
@@ -12,6 +14,6 @@ public interface IProvinciaAppService : IDisposable
     Task ActualizarMunicipio(ActualizarMunicipio municipio, CancellationToken cancellationToken);
     Task RemoverMunicipio(Municipio municipio, CancellationToken cancellationToken);
     Task<Municipio> ObterMunicipioPorIdAsync(Guid id);
-    Task<IEnumerable<Municipio>> ObterMunicipiosAsync();
+    Task<IEnumerable<MunicipioDto>> ObterMunicipiosAsync();
 }
 

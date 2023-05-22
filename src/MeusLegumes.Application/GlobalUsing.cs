@@ -43,4 +43,5 @@ global using MeusLegumes.Domain.Contexts.Usuarios.Dtos;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using System.Reflection;
+global using MeusLegumes.Domain.Contexts.Produtos.DTOs;
 

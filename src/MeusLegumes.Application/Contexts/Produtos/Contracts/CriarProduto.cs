@@ -25,8 +25,10 @@ public class CriarProduto
     [Range(20, int.MaxValue, ErrorMessage = "O valor do produto deve ser maior que 20")]
     public decimal PrecoUnitario { get; set; }
 
-    [Required(ErrorMessage = "Selecione a imagem proncipal para o produto")]
+    [Required(ErrorMessage = "Selecione a imagem principal do produto")]
     public string UrlImagemPrincipal { get; set; }
+
+    public string ImagemUpload { get; set; }
 
     public bool EmPromocao { get; set; }
     public decimal PrecoPromocional { get; set; }

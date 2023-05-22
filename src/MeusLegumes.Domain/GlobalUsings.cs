@@ -12,5 +12,6 @@ global using FluentValidation.Results;
 global using MeusLegumes.Domain.Contexts.Pedidos.Entities;
 global using MeusLegumes.Domain.Contexts.Usuarios.Dtos;
 global using MeusLegumes.Domain.Contexts.Usuarios.Entities;
+global using MeusLegumes.Domain.Contexts.Produtos.DTOs;
 
 

@@ -1,5 +1,7 @@
 ﻿namespace MeusLegumes.API.Controllers.V1;
 
+[ApiVersion("1.0")]
+[Route(ApiRoutes.BaseRoute)]
 public class LoginController : BaseController
 {
     private readonly IMediator _mediator;

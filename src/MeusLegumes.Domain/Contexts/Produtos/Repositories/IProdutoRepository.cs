@@ -8,8 +8,8 @@ public interface IProdutoRepository : IRepository<Produto>
     void AdicionarProdutoRelacionado(ProdutoRelacionado produtoRelacionado);
 
     Task<Produto> ObterPacotePorId(Guid id);
-    Task<IEnumerable<Produto>> ObterTodosPacotes();
+    Task<IEnumerable<PacoteDto>> ObterTodosPacotes();
 
     Task<Produto> ObterProdutoPorId(Guid id);
-    Task<IEnumerable<Produto>> ObterTodosProdutos();
+    Task<IEnumerable<ProdutoDto>> ObterTodosProdutos();
 }

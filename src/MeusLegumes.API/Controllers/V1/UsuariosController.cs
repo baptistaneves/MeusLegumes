@@ -37,4 +37,37 @@ public class UsuariosController : BaseController
 
         return Response(result);
     }
+
+    [HttpPost(ApiRoutes.Usuario.ActualizarUsuario)]
+    public async Task<ActionResult> ActualizarUsuario([FromBody] ActualizarUsuario usuario, CancellationToken cancellationToken)
+    {
+        var command = new ActualizarUsuarioCommand(usuario.Id, usuario.Nome, usuario.Email, usuario.Perfil);
+       
+        await _mediator.Send(command, cancellationToken);
+
+        return Response();
+    }
+
+    [HttpDelete(ApiRoutes.Usuario.RemoverUsuario)]
+    [ValidateGuid("id")]
+    public async Task<ActionResult> RemoverUsuario(Guid id, CancellationToken cancellationToken)
+    {
+        var command = new RemoverUsuarioCommand(id);
+        
+        await _mediator.Send(command, cancellationToken);
+
+        return Response();
+    }
+
+    [HttpPost(ApiRoutes.Usuario.AlterarSenha)]
+    public async Task<ActionResult> AlterarSenha(AlterarSenha alterarSenha, CancellationToken cancellationToken)
+    {
+        var command = new AlterarSenhaCommand(alterarSenha.Id, alterarSenha.SenhaActual, alterarSenha.NovaSenha);
+
+        await _mediator.Send(command, cancellationToken);
+
+        return Response();
+    }
+
+    
 }

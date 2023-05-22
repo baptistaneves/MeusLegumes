@@ -5,19 +5,15 @@
 public class PacotesController : BaseController
 {
     private readonly IPacoteAppService _pacoteAppService;
-    private readonly IImageUploadService _imageUploadService;
-    private readonly string _folderPath = "/wwwroot/imagens/pacotes";
 
     public PacotesController(INotifier notifier,
-                             IPacoteAppService pacoteAppService,
-                             IImageUploadService imageUploadService) : base(notifier)
+                             IPacoteAppService pacoteAppService) : base(notifier)
     {
         _pacoteAppService = pacoteAppService;
-        _imageUploadService = imageUploadService;
     }
 
     [HttpGet(ApiRoutes.Pacote.ObterPacotes)]
-    public async Task<ActionResult> ObterPacotes()
+    public async Task<ActionResult<PacoteDto>> ObterPacotes()
     {
         return Ok(await _pacoteAppService.ObterTodosAsync());
     }
@@ -36,23 +32,46 @@ public class PacotesController : BaseController
     [ValidateModel]
     public async Task<ActionResult> NovoPacote([FromBody] CriarPacote pacote, CancellationToken cancellationToken)
     {
-        await _pacoteAppService.Adicionar(pacote, cancellationToken);
+        var imagemNome = Guid.NewGuid() + "_" + pacote.UrlImagemPrincipal;
+        if (!UploadArquivo(pacote.ImagemUpload, imagemNome))
+        {
+            return Response(pacote);
+        }
 
-        if (!OperationIsValid()) _imageUploadService.DeleteImage(pacote.ImagemUrl, _folderPath);
+        pacote.UrlImagemPrincipal = imagemNome;
+
+        await _pacoteAppService.Adicionar(pacote, cancellationToken);
 
         return Response(pacote);
     }
 
     [HttpPut(ApiRoutes.Pacote.ActualizarPacote)]
     [ValidateModel]
-    public async Task<ActionResult> ActualizarPacote([FromBody] ActualizarPacote pacoteActualizado, CancellationToken cancellationToken)
+    public async Task<ActionResult> ActualizarPacote([FromBody] ActualizarPacote pacoteAct, CancellationToken cancellationToken)
     {
-        var pacote =  await _pacoteAppService.Actualizar(pacoteActualizado, cancellationToken);
+        var pacote = await _pacoteAppService.ObterPorIdAsync(pacoteAct.Id);
+        if (pacote is null)
+        {
+            Notify("Não existe nenhum pacote com o Id informado");
+            return Response(pacoteAct);
+        }
 
-        if (OperationIsValid() && pacoteActualizado.ImagemUrl != pacote.UrlImagemPrincipal) 
-            _imageUploadService.DeleteImage(pacote.UrlImagemPrincipal, _folderPath);
+        if (pacoteAct.ImagemUpload != null)
+        {
+            var imagemNome = Guid.NewGuid() + "_" + pacoteAct.UrlImagemPrincipal;
+            if (!UploadArquivo(pacoteAct.ImagemUpload, imagemNome))
+            {
+                return Response(pacoteAct);
+            }
 
-        return Response(pacoteActualizado);
+            pacoteAct.UrlImagemPrincipal = imagemNome;
+        }
+
+        await _pacoteAppService.Actualizar(pacoteAct, cancellationToken);
+
+        if (OperationIsValid()) DeleteImage(pacote.UrlImagemPrincipal);
+
+        return Response(pacoteAct);
     }
 
     [HttpDelete(ApiRoutes.Pacote.RemoverPacote)]
@@ -64,17 +83,38 @@ public class PacotesController : BaseController
 
         await _pacoteAppService.Remover(id, cancellationToken);
 
-        if(OperationIsValid()) _imageUploadService.DeleteImage(pacote.UrlImagemPrincipal, _folderPath);
+        if (OperationIsValid()) DeleteImage(pacote.UrlImagemPrincipal);
 
         return Response();
     }
 
-    [HttpPost(ApiRoutes.Pacote.UploadImagem)]
-    public ActionResult UploadImagem(IFormFile file)
+    private bool UploadArquivo(string arquivo, string imgNome)
     {
-        var urlImagem = _imageUploadService.UploadImage(file, _folderPath);
+        if (string.IsNullOrEmpty(arquivo))
+        {
+            Notify("Forneça uma imagem para este produto!");
+            return false;
+        }
 
-        return new JsonResult(urlImagem);
+        var imageDataByteArray = Convert.FromBase64String(arquivo);
+
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens/pacotes", imgNome);
+
+        if (System.IO.File.Exists(filePath))
+        {
+            Notify("Já existe um arquivo com este nome!");
+            return false;
+        }
+
+        System.IO.File.WriteAllBytes(filePath, imageDataByteArray);
+
+        return true;
     }
 
+    private void DeleteImage(string imageFileName)
+    {
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/pacotes/" + imageFileName);
+
+        if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
+    }
 }

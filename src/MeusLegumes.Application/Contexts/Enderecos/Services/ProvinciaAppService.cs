@@ -1,4 +1,6 @@
-﻿namespace MeusLegumes.Application.Contexts.Enderecos.Services;
+﻿using MeusLegumes.Domain.Contexts.Enderecos.DTOs;
+
+namespace MeusLegumes.Application.Contexts.Enderecos.Services;
 
 public class ProvinciaAppService : BaseService, IProvinciaAppService
 {
@@ -117,7 +119,7 @@ public class ProvinciaAppService : BaseService, IProvinciaAppService
         return await _provinciaRepository.ObterMunicipioPorIdAsync(id);
     }
 
-    public async Task<IEnumerable<Municipio>> ObterMunicipiosAsync()
+    public async Task<IEnumerable<MunicipioDto>> ObterMunicipiosAsync()
     {
         return await _provinciaRepository.ObterMunicipiosAsync();
     }

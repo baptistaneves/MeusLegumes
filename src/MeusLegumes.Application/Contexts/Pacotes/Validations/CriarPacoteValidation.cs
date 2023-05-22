@@ -14,7 +14,7 @@ internal class CriarPacoteValidation : AbstractValidator<CriarPacote>
             .NotEmpty().WithMessage("Informe o preço unitário do pacote")
             .GreaterThan(20).WithMessage("O valor do preço do pacote deve ser maior que vinte (20)");
 
-        RuleFor(p => p.ImagemUrl)
+        RuleFor(p => p.UrlImagemPrincipal)
             .NotEmpty().WithMessage("Selecione uma imagem para o pacote");
 
         When(p => p.EmPromocao == true, () =>

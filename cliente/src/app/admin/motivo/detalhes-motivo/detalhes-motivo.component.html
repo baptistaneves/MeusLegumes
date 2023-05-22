@@ -1,0 +1,73 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Detalhes Motivo</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/motivos']">Motivos</a></li>
+                    <li class="breadcrumb-item active">Detalhes motivo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Detalhes motivo</h3>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <form class="form-horizontal" [formGroup]="motivoForm">
+                           
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="codigoInterno" class="col-sm-4 col-form-label">Código</label>
+                                        <div>
+                                            <input type="text" class="form-control" id="codigoInterno" placeholder="Código (requerido)" formControlName="codigoInterno">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="mencaoFactura" class="col-sm-4 col-form-label">Menção Factura</label>
+                                        <div>
+                                            <input type="text" class="form-control" id="mencaoFactura" placeholder="Menção (requerido)" formControlName="mencaoFactura">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="normaLegalAplicavel" class="col-sm-4 col-form-label">Norma Aplicavel</label>
+                                        <div>
+                                            <input type="text" class="form-control" id="normaLegalAplicavel" placeholder="Norma (requerido)" formControlName="normaLegalAplicavel">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label for="motivo" class="col-sm-4 col-form-label">Motivo</label>
+                                        <div>
+                                            <input type="text" class="form-control" id="motivo" placeholder="Motivo (requerido)" formControlName="motivo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <a [routerLink]="['/admin/motivos']" class="btn btn-default">Voltar</a>
+                                <a [routerLink]="['/admin/editar-motivo', motivo.id]" class="btn btn-info ml-2">Editar</a>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

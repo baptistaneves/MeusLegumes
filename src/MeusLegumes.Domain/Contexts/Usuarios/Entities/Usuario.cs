@@ -11,8 +11,4 @@ public class Usuario : Entity
         Email = email;
     }
 
-    public Usuario()
-    {
-
-    }
 }

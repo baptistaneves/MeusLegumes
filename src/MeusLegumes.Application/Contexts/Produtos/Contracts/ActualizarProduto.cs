@@ -28,8 +28,9 @@ public class ActualizarProduto
     [Range(20, int.MaxValue, ErrorMessage = "O valor do produto deve ser maior que 20")]
     public decimal PrecoUnitario { get; set; }
 
-    [Required(ErrorMessage = "Selecione uma imagem")]
-    public string UrlImagemPrincipal { get; set; }
+    public string? UrlImagemPrincipal { get; set; }
+
+    public string? ImagemUpload { get; set; }
 
     public bool EmPromocao { get; set; }
     public decimal PrecoPromocional { get; set; }

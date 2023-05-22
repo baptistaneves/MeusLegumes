@@ -67,6 +67,8 @@ global using MeusLegumes.Infrastructure.Repositories.Usuarios;
 global using MeusLegumes.Application.Contexts.Identity.Queries;
 global using MeusLegumes.Domain.Contexts.Pedidos.Repositories;
 global using MeusLegumes.Infrastructure.Repositories.Pedidos;
+global using MeusLegumes.Domain.Contexts.Produtos.DTOs;
+
 
 
 

@@ -1,0 +1,156 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Detalhes Produto</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/produtos']">Produtos</a></li>
+                    <li class="breadcrumb-item active">Detalhes produto</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Detalhes produto</h3>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <form class="form-horizontal" [formGroup]="produtoForm">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                                        <div>
+                                            <input type="text" class="form-control" id="nome" placeholder="Nome (requerido)" formControlName="nome">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="precoUnitario" class="col-sm-4 col-form-label">Preço Unitário</label>
+                                        <div>
+                                            <input type="number" class="form-control" id="nome" placeholder="Preço (requerido)" formControlName="precoUnitario">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="categoria" class="col-sm-4 col-form-label">Categoria</label>
+                                        <div>
+                                            <select class="form-control" id="categoria" formControlName="categoriaId">
+                                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.descricao}}</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="unidade" class="col-sm-4 col-form-label">Unidade</label>
+                                        <div>
+                                            <select class="form-control" id="unidade" formControlName="unidadeId">
+                                                <option *ngFor="let unidade of unidades" value="{{unidade.id}}">{{unidade.descricao}}</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="imposto" class="col-sm-4 col-form-label">Imposto</label>
+                                        <div>
+                                            <select class="form-control" id="imposto" formControlName="impostoId">
+                                                <option *ngFor="let imposto of impostos" value="{{imposto.id}}">{{imposto.descricao}}</option>
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="motivo" class="col-sm-4 col-form-label">Motivo</label>
+                                        <div>
+                                            <select class="form-control" id="motivoId" formControlName="motivoId">
+                                                <option *ngFor="let motivo of motivos" value="{{motivo.id}}">{{motivo.motivo}}</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="descricao" class="col-sm-4 col-form-label">Descrição</label>
+                                        <div>
+                                            <textarea class="form-control" rows="3" placeholder="Descrição ..." formControlName="descricao"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="observacao" class="col-sm-4 col-form-label">Observação</label>
+                                        <div>
+                                            <textarea class="form-control" rows="3" placeholder="Observação ..." formControlName="observacao"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="form-group col-10">
+                                        <label for="precoPromocional" class="col-sm-4 col-form-label">Preço Promocional</label>
+                                        <div>
+                                            <input type="number" class="form-control" id="precoPromocional" placeholder="Preço promocional" formControlName="precoPromocional">
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label  class="col-sm-4 col-form-label"></label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="emPromocao" value="false" formControlName="emPromocao">
+                                            <label for="emPromocao" class="custom-control-label">Em Promoção</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="form-group col-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="novoLancamento" value="false" formControlName="novoLancamento">
+                                            <label for="novoLancamento" class="custom-control-label">Novo Lançamento</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="destaque" value="false" formControlName="destaque">
+                                            <label for="destaque" class="custom-control-label">Destaque</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="maisVendido" value="false" formControlName="maisVendido">
+                                            <label for="maisVendido" class="custom-control-label">Mais Vendido</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="emEstoque" value="false" formControlName="emEstoque">
+                                            <label for="emEstoque" class="custom-control-label">Em Estoque</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="maisProcurado" value="false" formControlName="maisProcurado">
+                                            <label for="maisProcurado" class="custom-control-label">Mais Procurado</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="activo" value="true" formControlName="activo">
+                                            <label for="activo" class="custom-control-label">Activo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">                                
+                                    <div class="form-group">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <a [routerLink]="['/admin/produtos']" class="btn btn-default">Voltar</a>
+                                <a [routerLink]="['/admin/editar-produto', produto.id]" class="btn btn-info ml-2">Editar</a>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
