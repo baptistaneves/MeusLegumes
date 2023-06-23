@@ -30,7 +30,11 @@ public class UsuarioRepository : IUsuarioRepository
 
     public async Task<CriarUsuarioResponse> Actualizar(Usuario usuario)
     {
-        var appUser = _mapper.Map<AppUser>(usuario);
+        var appUser = await _userManager.FindByIdAsync(usuario.Id.ToString());
+
+        appUser.Email = usuario.Email;
+        appUser.UserName = usuario.UserName;
+
         var identityResult = await _userManager.UpdateAsync(appUser);
 
         return new CriarUsuarioResponse(appUser.Id, identityResult.Succeeded, identityResult.Succeeded ? null : identityResult.Errors.Select(e => new ErrorResponse(e.Description)));

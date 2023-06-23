@@ -78,9 +78,10 @@ export class AdminLoginComponent extends FormBaseComponent implements OnInit {
     let toast = this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
     if(toast){
       toast.onHidden.subscribe(() => {
-         this.returnUrl
-         ? this.router.navigate([this.returnUrl])
-         : this.router.navigate(['/admin/home']);
+        //  this.returnUrl
+        //  ? this.router.navigate([this.returnUrl])
+        //  : this.router.navigate(['/admin/home']);
+        this.router.navigate(['/admin/home']);
       });
     }
   }

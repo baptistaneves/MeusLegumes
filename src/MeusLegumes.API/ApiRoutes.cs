@@ -89,7 +89,7 @@ public class ApiRoutes
     {
         public const string CriarUsuario = "criar-usuario";
         public const string ActualizarUsuario = "actualizar-usuario";
-        public const string RemoverUsuario = "remover-usuario";
+        public const string RemoverUsuario = "remover-usuario/{id}";
         public const string AlterarSenha = "alterar-senha";
         public const string Login = "login";
         public const string ObterUsuarios = "obter-usuarios";

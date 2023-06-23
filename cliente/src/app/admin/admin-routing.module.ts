@@ -55,7 +55,7 @@ const routes: Routes = [
   {
     path: '', component: AdminLayoutComponent,
     children: [
-      {path: 'home', component: DashboardComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'home', component: DashboardComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {path: 'usuarios', component: ListarUsuariosComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
       {path: 'novo-usuario', component: NovoUsuarioComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
       {
@@ -75,12 +75,12 @@ const routes: Routes = [
         }
       },
 
-      {path: 'categorias', component: ListarCategoriasComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'nova-categoria', component: NovaCategoriaComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'categorias', component: ListarCategoriasComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'nova-categoria', component: NovaCategoriaComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-categoria/:id', component: EditarCategoriaComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           categoria: CategoriaResolver
         }
@@ -88,18 +88,18 @@ const routes: Routes = [
       {
         path: 'detalhes-categoria/:id', component: DetalhesCategoriaComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           categoria: CategoriaResolver
         }
       },
 
-      {path: 'unidades', component: ListarUnidadesComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'nova-unidade', component: NovaUnidadeComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'unidades', component: ListarUnidadesComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'nova-unidade', component: NovaUnidadeComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-unidade/:id', component: EditarUnidadeComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           unidade: UnidadeResolver
         }
@@ -107,18 +107,18 @@ const routes: Routes = [
       {
         path: 'detalhes-unidade/:id', component: DetalhesUnidadeComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           unidade: UnidadeResolver
         }
       },
 
-      {path: 'provincias', component: ListarProvinciasComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'nova-provincia', component: NovaProvinciaComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'provincias', component: ListarProvinciasComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'nova-provincia', component: NovaProvinciaComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-provincia/:id', component: EditarProvinciaComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           provincia: ProvinciaResolver
         }
@@ -126,18 +126,18 @@ const routes: Routes = [
       {
         path: 'detalhes-provincia/:id', component: DetalhesProvinciaComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           provincia: ProvinciaResolver
         }
       },
 
-      {path: 'municipios', component: ListarMunicipiosComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'novo-municipio', component: NovoMunicipioComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'municipios', component: ListarMunicipiosComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'novo-municipio', component: NovoMunicipioComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-municipio/:id', component: EditarMunicipioComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           municipio: MunicipioResolver
         }
@@ -145,18 +145,18 @@ const routes: Routes = [
       {
         path: 'detalhes-municipio/:id', component: DetalhesMunicipioComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           municipio: MunicipioResolver
         }
       },
 
-      {path: 'impostos', component: ListarImpostosComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'novo-imposto', component: NovoImpostoComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'impostos', component: ListarImpostosComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'novo-imposto', component: NovoImpostoComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-imposto/:id', component: EditarImpostoComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           imposto: ImpostoResolver
         }
@@ -164,18 +164,18 @@ const routes: Routes = [
       {
         path: 'detalhes-imposto/:id', component: DetalhesImpostoComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           imposto: ImpostoResolver
         }
       },
 
-      {path: 'motivos', component: ListarMotivosComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'novo-motivo', component: NovoMotivoComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'motivos', component: ListarMotivosComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'novo-motivo', component: NovoMotivoComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-motivo/:id', component: EditarMotivoComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           motivo: MotivoResolver
         }
@@ -183,18 +183,18 @@ const routes: Routes = [
       {
         path: 'detalhes-motivo/:id', component: DetalhesMotivoComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           motivo: MotivoResolver
         }
       },
 
-      {path: 'produtos', component: ListarProdutosComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'novo-produto', component: NovoProdutoComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'produtos', component: ListarProdutosComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'novo-produto', component: NovoProdutoComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-produto/:id', component: EditarProdutoComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           produto: ProdutoResolver
         }
@@ -202,18 +202,18 @@ const routes: Routes = [
       {
         path: 'detalhes-produto/:id', component: DetalhesProdutoComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           produto: ProdutoResolver
         }
       },
 
-      {path: 'pacotes', component: ListarPacotesComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
-      {path: 'novo-pacote', component: NovoPacoteComponent, canActivate: [AdminGuard], data: {role: ['Admin']},},
+      {path: 'pacotes', component: ListarPacotesComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
+      {path: 'novo-pacote', component: NovoPacoteComponent, canActivate: [AdminGuard], data: {role: ['Admin', 'Entregador']},},
       {
         path: 'editar-pacote/:id', component: EditarPacoteComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           pacote: PacoteResolver
         }
@@ -221,7 +221,7 @@ const routes: Routes = [
       {
         path: 'detalhes-pacote/:id', component: DetalhesPacoteComponent,
         canActivate: [AdminGuard],
-        data: {role: ['Admin']},
+        data: {role: ['Admin', 'Entregador']},
         resolve: {
           pacote: PacoteResolver
         }

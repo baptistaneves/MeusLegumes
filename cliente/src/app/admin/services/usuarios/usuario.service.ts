@@ -1,3 +1,4 @@
+import { AlterarSenha } from './../../models/usuarios/alterarSenha';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
@@ -34,6 +35,33 @@ export class UsuarioService extends BaseService {
           catchError(this.serviceError)));
 
     return response;
+  }
+
+  editar(usuario: Usuario) : Observable<Usuario>{
+    let response = this.http
+        .put<Usuario>(this.UrlServiceV1 + "usuarios/actualizar-usuario", usuario, this.ObterAuthHeaderJson())
+        .pipe((
+          map(this.extractData),
+          catchError(this.serviceError)));
+
+    return response;
+  }
+
+  alterarSenha(alterarSenha: AlterarSenha) : Observable<any>{
+    let response = this.http
+        .patch<Usuario>(this.UrlServiceV1 + "usuarios/alterar-senha", alterarSenha, this.ObterAuthHeaderJson())
+        .pipe((
+          map(this.extractData),
+          catchError(this.serviceError)));
+
+    return response;
+  }
+
+  
+  excluir(id:string) : Observable<any>{
+    return this.http
+      .delete<any>(this.UrlServiceV1 + "usuarios/remover-usuario/" + id, this.ObterAuthHeaderJson())
+      .pipe(catchError(super.serviceError));
   }
 
   login(login: Login) : Observable<UsuarioResponse>{

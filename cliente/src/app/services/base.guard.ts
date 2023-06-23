@@ -1,4 +1,5 @@
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LocalStorageUtils } from 'src/app/utils/localstorage';
 
 export abstract class BaseGuard { 
@@ -6,12 +7,14 @@ export abstract class BaseGuard {
     private localStorageUtils = new LocalStorageUtils();
     result: boolean = false;
 
-    constructor(protected router: Router){}
+    constructor(protected router: Router,
+                protected toastr: ToastrService){}
 
     protected validarRoles(routeAc: ActivatedRouteSnapshot) : boolean {
 
         if(!this.localStorageUtils.obterTokenUsuario()) {
             this.router.navigate(['/admin/login/'], { queryParams: { returnUrl: this.router.url }});
+            return false;
         }
 
         let roles = routeAc.data['role'] as Array<string>;
@@ -22,7 +25,8 @@ export abstract class BaseGuard {
                 this.result = true;
             }
             else {
-                this.result = false;
+              this.navegarAcessoNegado();
+                return false;
             }
         }
 
@@ -47,4 +51,7 @@ export abstract class BaseGuard {
     return isMatch;
   }
 
+  private navegarAcessoNegado() {
+    this.toastr.error('Acesso Negado!', 'Opa :(');
+} 
 }

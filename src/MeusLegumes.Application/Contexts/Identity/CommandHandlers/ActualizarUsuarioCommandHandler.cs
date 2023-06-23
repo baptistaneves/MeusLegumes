@@ -4,15 +4,12 @@ public class ActualizarUsuarioCommandHandler : IRequestHandler<ActualizarUsuario
 {
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly INotifier _notifier;
-    private readonly IJwtService _jwtService;
 
 
     public ActualizarUsuarioCommandHandler(INotifier notifier,
-                                      IJwtService jwtService,
                                       IUsuarioRepository usuarioRepository)
     {
         _notifier = notifier;
-        _jwtService = jwtService;
         _usuarioRepository = usuarioRepository;
     }
 
@@ -24,12 +21,13 @@ public class ActualizarUsuarioCommandHandler : IRequestHandler<ActualizarUsuario
         if (usuario == null) return false;
 
         var usuarioAct = new Usuario(request.Name, request.Email);
+        usuarioAct.Id = request.Id;
 
         if (!await ActualizarUsuario(usuarioAct)) return false;
 
         if (!string.IsNullOrEmpty(usuario.Perfil) && usuario.Perfil != request.Perfil)
         {
-            if (!await RemoverUsuarioDoPerfil(usuarioAct.Id, request.Perfil)) return false; 
+            if (!await RemoverUsuarioDoPerfil(usuarioAct.Id, usuario.Perfil)) return false; 
 
             if (!await AdicionarUsuarioAoPerfil(usuarioAct.Id, request.Perfil)) return false;
         }

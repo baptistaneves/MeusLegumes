@@ -67,6 +67,8 @@ import { PacoteResolver } from './services/pacotes/pacote.resolver';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminGuard } from './guards/admin.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from '../services/error.interceptor';
 
 @NgModule({
   declarations: [

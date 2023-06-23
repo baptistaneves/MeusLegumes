@@ -11,6 +11,7 @@ public class UnidadeAppService : BaseService, IUnidadeAppService
         _unidadeRepository = unidadeRepository;
         _mapper = mapper;
     }
+
     public async Task Adicionar(CriarUnidade unidade, CancellationToken cancellationToken)
     {
         if (!Validate(new CriarUnidadeValidation(), unidade)) return;
@@ -44,6 +45,7 @@ public class UnidadeAppService : BaseService, IUnidadeAppService
         _unidadeRepository.Actualizar(_mapper.Map<Unidade>(unidade));
         await _unidadeRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
     }
+
     public async Task Remover(Guid id, CancellationToken cancellationToken)
     {
         if (_unidadeRepository.VerificarSeUnidadePossuiProdutosPorId(id).Result.Produtos.Any())
@@ -65,6 +67,7 @@ public class UnidadeAppService : BaseService, IUnidadeAppService
     {
         return await _unidadeRepository.ObterTodosAsync();
     }
+
     public void Dispose()
     {
         _unidadeRepository?.Dispose();

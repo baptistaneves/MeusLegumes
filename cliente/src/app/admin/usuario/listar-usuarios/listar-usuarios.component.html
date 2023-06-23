@@ -55,6 +55,9 @@
                                             [routerLink]="['/admin/editar-usuario/',usuario.id]">
                                             <span class="fa fa-pencil-alt"></span>
                                         </a>&nbsp;
+                                        <a class="btn-sm btn-secondary" href="javascript:void(0)" (click)="abrirModal(usuario.id)" data-toggle="modal" data-target="#alterarSenha">
+                                            <span class="fa fa-lock"></span>
+                                        </a>&nbsp;
                                         <a class="btn-sm btn-danger" href="javascript:void(0)" (click)="abrirModal(usuario.id)" data-toggle="modal" data-target="#excluir" >
                                             <span class="fa fa-trash"></span>
                                         </a>
@@ -91,6 +94,59 @@
             </div>
 
         </div>
-
     </div>
+
+    <div class="modal fade" id="alterarSenha">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alterar Senha</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" (ngSubmit)="alterarSenha()" [formGroup]="alterarSenhaForm">
+                        <div class="alert alert-danger" *ngIf="errors.length > 0">
+                            <h3>Opa! Alguma coisa não deu certo:</h3>
+                            <ul>
+                                <li *ngFor="let error of errors">{{ error }}</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="nome" class="col-sm-4 col-form-label">Senha Actual</label>
+                                    <div>
+                                        <input type="password" class="form-control" id="senhaActual" placeholder="Senha actual (requerido)" formControlName="senhaActual" [ngClass]="{'is-invalid': displayMessage['senhaActual'] }">
+                                        <span class="text-danger" *ngIf="displayMessage['senhaActual']">
+                                            <p [innerHTML]="displayMessage['senhaActual']"></p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="email" class="col-sm-4 col-form-label">Nova Senha</label>
+                                    <div>
+                                        <input type="password" class="form-control" id="novaSenha" placeholder="Nova senha (requerido)" formControlName="novaSenha" [ngClass]="{'is-invalid': displayMessage['novaSenha'] }">
+                                        <span class="text-danger" *ngIf="displayMessage['novaSenha']">
+                                            <p [innerHTML]="displayMessage['novaSenha']"></p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modalAlterarSenha">Cancelar</button>
+                            <button [disabled]="!alterarSenhaForm.valid"  type="submit" class="btn btn-info ml-2">Salvar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </section>

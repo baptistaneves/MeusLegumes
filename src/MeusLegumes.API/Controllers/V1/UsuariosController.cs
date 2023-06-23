@@ -38,7 +38,7 @@ public class UsuariosController : BaseController
         return Response(result);
     }
 
-    [HttpPost(ApiRoutes.Usuario.ActualizarUsuario)]
+    [HttpPut(ApiRoutes.Usuario.ActualizarUsuario)]
     public async Task<ActionResult> ActualizarUsuario([FromBody] ActualizarUsuario usuario, CancellationToken cancellationToken)
     {
         var command = new ActualizarUsuarioCommand(usuario.Id, usuario.Nome, usuario.Email, usuario.Perfil);
@@ -59,7 +59,7 @@ public class UsuariosController : BaseController
         return Response();
     }
 
-    [HttpPost(ApiRoutes.Usuario.AlterarSenha)]
+    [HttpPatch(ApiRoutes.Usuario.AlterarSenha)]
     public async Task<ActionResult> AlterarSenha(AlterarSenha alterarSenha, CancellationToken cancellationToken)
     {
         var command = new AlterarSenhaCommand(alterarSenha.Id, alterarSenha.SenhaActual, alterarSenha.NovaSenha);

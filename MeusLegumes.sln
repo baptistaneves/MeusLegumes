@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.Application", "src\MeusLegumes.Application\MeusLegumes.Application.csproj", "{270CB1B8-61F0-4078-840C-C752A1FE9089}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.Application", "src\MeusLegumes.Application\MeusLegumes.Application.csproj", "{270CB1B8-61F0-4078-840C-C752A1FE9089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.Domain", "src\MeusLegumes.Domain\MeusLegumes.Domain.csproj", "{279FB7B8-A234-4839-9CC7-3378F9FAF28D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.Domain", "src\MeusLegumes.Domain\MeusLegumes.Domain.csproj", "{279FB7B8-A234-4839-9CC7-3378F9FAF28D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.Infrastructure", "src\MeusLegumes.Infrastructure\MeusLegumes.Infrastructure.csproj", "{FB69124C-D74E-4B8F-AD52-AF9CDA49999D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.Infrastructure", "src\MeusLegumes.Infrastructure\MeusLegumes.Infrastructure.csproj", "{FB69124C-D74E-4B8F-AD52-AF9CDA49999D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.API", "src\MeusLegumes.API\MeusLegumes.API.csproj", "{01FC8314-ABEB-4387-89EA-C74B0222EBE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.API", "src\MeusLegumes.API\MeusLegumes.API.csproj", "{01FC8314-ABEB-4387-89EA-C74B0222EBE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.Application.Tests", "test\MeusLegumes.Application.Tests\MeusLegumes.Application.Tests.csproj", "{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{01FC8314-ABEB-4387-89EA-C74B0222EBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01FC8314-ABEB-4387-89EA-C74B0222EBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01FC8314-ABEB-4387-89EA-C74B0222EBE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

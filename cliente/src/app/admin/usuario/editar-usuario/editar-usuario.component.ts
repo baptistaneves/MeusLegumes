@@ -73,11 +73,16 @@ export class EditarUsuarioComponent extends FormBaseComponent implements OnInit,
   editar() {
     if(this.usuarioForm.dirty && this.usuarioForm.valid) {
       this.usuario = Object.assign({}, this.usuario, this.usuarioForm.value);
+
+      this.usuarioService.editar(this.usuario)
+            .subscribe(
+              sucesso => { this.processarSucesso() },
+              erros => { this.processarFalha(erros) }
+            );
     }
   }
 
   processarSucesso() {
-    this.usuarioForm.reset();
     this.errors = [];
 
     let toast = this.toastr.success('Usuario Alterado com Sucesso!');
