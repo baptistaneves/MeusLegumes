@@ -15,7 +15,8 @@ public class AtualizarPedidoItemCommand : Command<bool>
 
     public override bool IsValid()
     {
-        return new AtualizarPedidoItemCommandValidation().Validate(this).IsValid;
+        ValidationResult = new AtualizarPedidoItemCommandValidation().Validate(this);
+        return ValidationResult.IsValid;
     }
 }
 

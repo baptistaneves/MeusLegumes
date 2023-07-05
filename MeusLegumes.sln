@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.API", "src\MeusLegumes.API\MeusLegumes.API.csproj", "{01FC8314-ABEB-4387-89EA-C74B0222EBE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.Application.Tests", "test\MeusLegumes.Application.Tests\MeusLegumes.Application.Tests.csproj", "{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.Application.Tests", "test\MeusLegumes.Application.Tests\MeusLegumes.Application.Tests.csproj", "{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8EFC1C75-325D-45E4-A78E-7313D04C4D6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeusLegumes.Domain.Tests", "test\MeusLegumes.Domain.Tests\MeusLegumes.Domain.Tests.csproj", "{C17AC229-9AF7-402C-AA94-1784EE0E453F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusLegumes.API.Tests", "test\MeusLegumes.API.Tests\MeusLegumes.API.Tests.csproj", "{6660A1E0-CD6D-4979-8D14-E9646D04A531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,22 @@ Global
 		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C17AC229-9AF7-402C-AA94-1784EE0E453F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C17AC229-9AF7-402C-AA94-1784EE0E453F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C17AC229-9AF7-402C-AA94-1784EE0E453F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C17AC229-9AF7-402C-AA94-1784EE0E453F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6660A1E0-CD6D-4979-8D14-E9646D04A531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6660A1E0-CD6D-4979-8D14-E9646D04A531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6660A1E0-CD6D-4979-8D14-E9646D04A531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6660A1E0-CD6D-4979-8D14-E9646D04A531}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E2130C4-FB9D-4AFE-BDAC-8743DCD84748} = {8EFC1C75-325D-45E4-A78E-7313D04C4D6A}
+		{C17AC229-9AF7-402C-AA94-1784EE0E453F} = {8EFC1C75-325D-45E4-A78E-7313D04C4D6A}
+		{6660A1E0-CD6D-4979-8D14-E9646D04A531} = {8EFC1C75-325D-45E4-A78E-7313D04C4D6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2624D6C1-022E-4178-96C5-2C6D03AEF10B}

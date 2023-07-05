@@ -21,7 +21,8 @@ public class AdicionarPedidoItemCommand : Command<bool>
 
     public override bool IsValid()
     {
-        return new AdicionarPedidoItemValidation().Validate(this).IsValid;
+        ValidationResult = new AdicionarPedidoItemValidation().Validate(this);
+        return ValidationResult.IsValid;
     }
 }
 
@@ -44,6 +45,6 @@ public class AdicionarPedidoItemValidation : AbstractValidator<AdicionarPedidoIt
 
         RuleFor(c => c.ValorUnitario)
             .NotEmpty().WithMessage("O valor unitário do produto não foi informado")
-            .GreaterThan(0).WithMessage("O valor do item precisa ser maior que 0");
+            .GreaterThan(20).WithMessage("O valor do item precisa ser maior que 0");
     }
 }

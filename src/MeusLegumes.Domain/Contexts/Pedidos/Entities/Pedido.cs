@@ -65,7 +65,7 @@ public class Pedido : Entity
         CalcularValorPedido();
     }
 
-    private void ActualizarItem(PedidoItem item)
+    public void ActualizarItem(PedidoItem item)
     {
         item.AssociarPedido(Id);
 
