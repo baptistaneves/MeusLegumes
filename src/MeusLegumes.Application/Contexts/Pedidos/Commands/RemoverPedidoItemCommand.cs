@@ -13,7 +13,8 @@ public class RemoverPedidoItemCommand : Command<bool>
 
     public override bool IsValid()
     {
-        return new RemoverPedidoItemCommandValidation().Validate(this).IsValid;
+        ValidationResult = new RemoverPedidoItemCommandValidation().Validate(this);
+        return ValidationResult.IsValid;
     }
 }
 

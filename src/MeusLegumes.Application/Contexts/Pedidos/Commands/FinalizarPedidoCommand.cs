@@ -13,7 +13,8 @@ public class FinalizarPedidoCommand : Command<bool>
 
     public override bool IsValid()
     {
-        return new FinalizarPedidoCommandValidation().Validate(this).IsValid;
+        ValidationResult = new FinalizarPedidoCommandValidation().Validate(this);
+        return ValidationResult.IsValid;
     }
 }
 

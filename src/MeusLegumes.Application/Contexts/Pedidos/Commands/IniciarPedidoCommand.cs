@@ -15,7 +15,8 @@ public class IniciarPedidoCommand : Command<bool>
 
     public override bool IsValid()
     {
-        return new IniciarPedidoValidation().Validate(this).IsValid;
+        ValidationResult = new IniciarPedidoValidation().Validate(this);
+        return ValidationResult.IsValid;
     }
 }
 
